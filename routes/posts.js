@@ -6,7 +6,7 @@ router.get('/', (req, res, next) => {
     res.send('INDEX /posts')
 });
 
-/* GET posts ncew /posts/new */
+/* GET posts new /posts/new */
 router.get('/new', (req, res, next) => {
     res.send('NEW /posts/new')
 });
