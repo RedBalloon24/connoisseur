@@ -36,17 +36,19 @@ module.exports = {
         res.render('posts/show', { post });
     },
     // POSTS /edit
-    async postEdit(req, res, next)     {
+    async postEdit(req, res, next) {
         let post = await Post.findById(req.params.id);
         res.render('posts/edit', { post });
     },
      // POSTS /update
-     async postUpdate(req, res, next)     {
+     async postUpdate(req, res, next) {
+        //handle any deletion of existing images
+        //handle upload of any new images
         let post = await Post.findByIdAndUpdate(req.params.id, req.body.post);
         res.redirect(`/posts/${post.id}`);
     },
      // POSTS /delete
-     async postDestroy(req, res, next)     {
+     async postDestroy(req, res, next) {
         let post = await Post.findByIdAndRemove(req.params.id);
         res.redirect('/posts');
     }

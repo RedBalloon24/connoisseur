@@ -5,7 +5,7 @@
 <div>
     <% post.images.forEach((image) => { %>
         <img src="<%= image.url %>" alt="Surf board image" width="200px">
-    <% }) %>
+    <% }); %>
 </div>
 <div>
     <a href="/posts/<%= post.id %>/edit"><button>Edit</button></a>
