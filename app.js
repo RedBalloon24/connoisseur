@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,7 +9,7 @@ const passport = require('passport');
 const User = require('./models/user');
 const session = require('express-session');
 const mongoose = require('mongoose');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
 
 //require routes
 const indexRouter = require('./routes/index');
@@ -18,7 +20,9 @@ const reviewsRouter = require('./routes/reviews');
 const app = express();
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/surf-shop', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true  });
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/surf-shop';
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true  });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
@@ -39,7 +43,7 @@ app.use(methodOverride('_method'));
 
 // configure passport and sessions
 app.use(session({
-  secret: 'dumbledore rocks!',
+  secret: process.env.SESSION_SECRET || 'Super duper secret (change it)',
   resave: false,
   saveUninitialized: true
 }));
