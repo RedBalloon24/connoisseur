@@ -1,6 +1,6 @@
 <h1>Edit Post!</h1>
 
-<form action="/posts/<%= post.id %>?_method=PUT" method="POST">
+<form action="/posts/<%= post.id %>?_method=PUT" method="POST" id="postEditForm">
     <div>
         <input type="text" name="post[title]" placeholder="Title" value="<%= post.title %>">
     </div>
@@ -8,19 +8,42 @@
         <input type="text" name="post[price]" placeholder="Price" value="<%= post.price %>">
     </div>
     <div>
-        <input type="file" accept="images/*" name="images" multiple>
+        <input type="file" id="imageUpload" accept="images/*" name="images" multiple>
         <div>
-            <% post.images.forEach((image) => { %>
-                <img src="<%= image.url %>" width="100px" />
+            <% post.images.forEach((image, i) => { %>
+                <img src="<%= image.url %>" width="100px">
+                <label for="image<%= i %>">Delete?</label>
+                <input type="checkbox" name="deleteImage" class="imageDeleteCheckBox" id="image<%= i %>" value="<%= image.public_id %>">
             <% }); %>
         </div>
     </div>
     <div>
-        <textarea name="post[description]" placeholder="Description"><%= post.title %></textarea>
+        <textarea name="post[description]" placeholder="Description"><%= post.description %></textarea>
     </div>
     <div>
-        <input type="text" name="post[location]" placeholder="Location" value="<%= post.description %>">
-    </div>
+        <input type="text" name="post[location]" placeholder="Location" value="<%= post.location %>">
 
-    <input type="submit">
+        <input type="submit">
+    </div>
 </form>
+
+<script>
+    // find post edit form
+    let postEditForm = document.getElementById('postEditForm');
+    // add submit listener to post edit form
+    postEditForm.addEventListener('submit', (event) => {
+        // find number of uploaded images
+        let imageUploads = document.getElementById('imageUpload').files.length;
+        // find total number of existing images
+        let existingImgs = document.querySelectorAll('.imageDeleteCheckbox').length;
+        // find number of potential deletions
+        let imgDeletions = document.querySelectorAll('.imageDeleteCheckbox:checked').length;
+        // find out if form can be submitted or not
+        let newTotal = exispostEditFormtingImgs - imgDeletions + imageUploads;
+        if(newTotal > 4) {
+            event.preventDefault();
+            let removalAmount = newTotal - 4
+            alert(`You must remove at least ${removalAmount} more image${removalAmount === 1 ? '' : 's'}!!`);
+        }
+    })
+</script>
