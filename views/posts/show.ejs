@@ -57,11 +57,11 @@
     
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/light-v10',
+      style: 'mapbox://styles/mapbox/streets-v11',
       center: post.coordinates,
       zoom: 5
     });
-    
+
     // create a HTML element for our post location/marker
     const el = document.createElement('div');
     el.className = 'marker';
