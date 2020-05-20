@@ -62,9 +62,17 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// default title middleware
+// set local variables middleware
 app.use((req, res, next) => {
+  // set default page title
   res.locals.title = 'Surf Shop';
+  // set success flash message
+  res.locals.success = req.session.success || '';
+  delete req.session.success;
+  // set error flash message
+  res.locals.error = req.session.error || '';
+  delete req.session.error;
+  // continue to next function in middleware chain
   next();
 })
 
@@ -81,13 +89,16 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // // set locals, only providing error in development
+  // res.locals.message = err.message;
+  // res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  // // render the error page
+  // res.status(err.status || 500);
+  // res.render('error');
+  console.log(err);
+  req.session.error = err.message;
+  res.redirect('back')
 });
 
 module.exports = app;
