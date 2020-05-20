@@ -9,8 +9,8 @@
     }
 
     #map {
-        width: 700px;
-        height: 400px;
+        width: 350px;
+        height: 200px;
     }
 
     .marker {
@@ -52,53 +52,25 @@
 </div>
 
 <script>
+    const post = <%- JSON.stringify(post) %>;
     mapboxgl.accessToken = 'pk.eyJ1IjoicmVkYmFsbG9vbjI0IiwiYSI6ImNrYWNuc3JpMTBvNmIyc284Mm1lcm05NjMifQ.T4-9EOCckP0cNa8UDUNiEQ';
     
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/light-v10',
-      center: [-96, 37.8],
-      zoom: 3
+      center: post.coordinates,
+      zoom: 5
     });
     
-    const geojson = {
-        type: 'FeatureCollection',
-        features: [{
-            type: 'Feature',
-            geometry: {
-            type: 'Point',
-            coordinates: [-77.032, 38.913]
-            },
-            properties: {
-            title: 'Mapbox',
-            description: 'Washington, D.C.'
-            }
-        },
-        {
-            type: 'Feature',
-            geometry: {
-            type: 'Point',
-            coordinates: [-122.414, 37.776]
-            },
-            properties: {
-            title: 'Mapbox',
-            description: 'San Francisco, California'
-            }
-        }]
-    };
+    // create a HTML element for our post location/marker
+    const el = document.createElement('div');
+    el.className = 'marker';
 
-    // add markers to map
-    geojson.features.forEach((marker) => {
+    // make a marker for each feature and add to the map
+    new mapboxgl.Marker(el)
+    .setLngLat(post.coordinates)
+    .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML('<h3>' + post.title + '</h3><p>' + post.location + '</p>'))
+    .addTo(map);
 
-        // create a HTML element for each feature
-        const el = document.createElement('div');
-        el.className = 'marker';
-
-        // make a marker for each feature and add to the map
-        new mapboxgl.Marker(el)
-        .setLngLat(marker.geometry.coordinates)
-        .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-            .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>'))
-        .addTo(map);
-    });  
 </script>
