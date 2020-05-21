@@ -27,8 +27,10 @@
 
 <h3>Reviews</h3>
 <% post.reviews.forEach((review) => { %>
-    <div>
-        <%= review.body %>
+    <div></div>
+        Author: <%= review.author.username %><br>
+        <%= review.body %><br>
         Rating: <%= review.rating %>
     </div>
+    <hr>
 <% }) %>

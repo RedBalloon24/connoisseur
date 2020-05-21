@@ -6,6 +6,7 @@ module.exports = {
     // REVIEWS /create
     async reviewCreate(req, res, next) {
         let post = await Post.findById(req.params.id);
+        req.body.review.author = req.user._id;
         let review = await Review.create(req.body.review);
         post.reviews.push(review);
         post.save();
