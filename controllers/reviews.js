@@ -5,7 +5,14 @@ const Post = require('../models/post');
 module.exports = {
     // REVIEWS /create
     async reviewCreate(req, res, next) {
-        let post = await Post.findById(req.params.id);
+        let post = await Post.findById(req.params.id).populate('reviews').exec();
+        let reviewed = post.reviews.filter(review => {
+            return review.author.equals(req.user._id)
+        }).length;
+        if(reviewed) {
+            req.session.error = 'Only one review per post allowed';
+            return res.redirect(`/posts/${post.id}`);
+        }
         req.body.review.author = req.user._id;
         let review = await Review.create(req.body.review);
         post.reviews.push(review);
@@ -24,7 +31,7 @@ module.exports = {
         await Post.findByIdAndUpdate(req.params.id, {
             $pull: { reviews: req.params.review_id }
         });
-        await Review.findByIdAndRemove(req.params.reviw_id);
+        await Review.findByIdAndRemove(req.params.review_id);
         req.session.success = 'Review deleted successfully!'
         res.redirect(`/posts/${req.params.id}`);
     }
