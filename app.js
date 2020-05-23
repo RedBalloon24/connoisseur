@@ -24,10 +24,10 @@ const app = express();
 // connect to the database
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/surf-shop';
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true  });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
+db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('we\'re connected');
 });
@@ -65,6 +65,10 @@ passport.deserializeUser(User.deserializeUser());
 
 // set local variables middleware
 app.use((req, res, next) => {
+  req.user = {
+    '_id' : '5ec68e95557e951b2e6e7ff6',
+    'username' : 'bob'
+  }
   res.locals.currentUser = req.user;
   // set default page title
   res.locals.title = 'Surf Shop';
