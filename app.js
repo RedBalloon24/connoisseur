@@ -22,14 +22,14 @@ const reviewsRouter = require('./routes/reviews');
 const app = express();
 
 // connect to the database
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/surf-shop';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
-  console.log('we\'re connected');
+  console.log(`Connected to the database: ${MONGODB_URI}`);
 });
 
 // use ejs-locals for all ejs templates:
