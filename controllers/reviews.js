@@ -1,7 +1,6 @@
 const Review = require('../models/review');
 const Post = require('../models/post');
 
-
 module.exports = {
     // REVIEWS /create
     async reviewCreate(req, res, next) {
