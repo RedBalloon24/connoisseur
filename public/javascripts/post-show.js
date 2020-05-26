@@ -1,9 +1,9 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoicmVkYmFsbG9vbjI0IiwiYSI6ImNrYWNuc3JpMTBvNmIyc284Mm1lcm05NjMifQ.T4-9EOCckP0cNa8UDUNiEQ';
+mapboxgl.accessToken = mapBoxToken;
         
-const map = new mapboxgl.Map({
+var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: post.coordinates,
+    center: post.geometry.coordinates,
     zoom: 5
 });
 
@@ -13,7 +13,7 @@ el.className = 'marker';
 
 // make a marker for each feature and add to the map
 new mapboxgl.Marker(el)
-.setLngLat(post.coordinates)
+.setLngLat(post.geometry.coordinates)
 .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
     .setHTML('<h3>' + post.title + '</h3><p>' + post.location + '</p>'))
 .addTo(map);
