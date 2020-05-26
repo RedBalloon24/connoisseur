@@ -1,8 +1,8 @@
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v9',
-    center: [-98.55562, 39.809734],
-    zoom: 3.3
+    center: [-34.87147638860296,30.801992772215883],
+    zoom: 1.8
 });
 
 // Add search capability

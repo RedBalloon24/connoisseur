@@ -67,14 +67,14 @@ passport.deserializeUser(User.deserializeUser());
 
 // set local variables middleware
 app.use((req, res, next) => {
-  req.user = {
-    // '_id' : '5ecc09dde4cede254bdad645',
-    // 'username' : 'bob3'
-    // '_id' : '5ec91a422d8cce168c08f5a4',
-    // 'username' : 'bob2'
-    '_id' : '5ec68e95557e951b2e6e7ff6',
-    'username' : 'bob'
-  }
+  // req.user = {
+  //   // '_id' : '5ecc09dde4cede254bdad645',
+  //   // 'username' : 'bob3'
+  //   // '_id' : '5ec91a422d8cce168c08f5a4',
+  //   // 'username' : 'bob2'
+  //   '_id' : '5ec68e95557e951b2e6e7ff6',
+  //   'username' : 'bob'
+  // }
   res.locals.currentUser = req.user;
   // set default page title
   res.locals.title = 'Bike Shop';

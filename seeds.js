@@ -1,6 +1,6 @@
 const faker = require('faker');
 const Post =  require('./models/post');
-const cities = require('./cities');
+const cities = require('cities.json');
 
 async function seedPosts() {
     // remove previous post data
@@ -15,10 +15,10 @@ async function seedPosts() {
             title,
             price: faker.random.number(),
             description,
-            location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            location: `${cities[random1000].name}, ${cities[random1000].country}`,
 			geometry: {
 				type: 'Point',
-				coordinates: [cities[random1000].longitude, cities[random1000].latitude],
+				coordinates: [cities[random1000].lng, cities[random1000].lat],
             },            
             author: {
                 '_id' : '5ec68e95557e951b2e6e7ff6',

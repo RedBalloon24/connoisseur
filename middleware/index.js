@@ -1,4 +1,5 @@
 const Review = require('../models/review')
+const User = require('../models/user')
 
 module.exports = {
     asyncErrorHandler: (fn) => 
@@ -13,5 +14,13 @@ module.exports = {
         }
         req.session.error = 'Permission denied';
         return res.redirect('/');
+    },
+    checKIfUserExists: async (req, res, next) => {
+        let userExists =  await User.findOne({'email': req.body.email});
+        if(userExists) {
+            req.session.error = 'That email has already been registered';
+            return res.redirect('back');
+        }
+        next();
     }
 }
