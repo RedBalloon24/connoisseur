@@ -14,7 +14,8 @@ module.exports = {
     async postIndex(req, res, next) {
         let posts = await Post.paginate({}, {
             page: req.query.page || 1,
-            limit: 10
+            limit: 10,
+            sort: { '_id': -1 }
         });
         posts.page = Number(posts.page);
         res.render('posts/index', { posts, mapBoxToken, title: 'Posts Index' });
@@ -39,8 +40,10 @@ module.exports = {
                 limit: 1
             })
             .send();
-        req.body.post.coordinates = response.body.features[0].geometry.coordinates;
-        let post = await Post.create(req.body.post);
+        req.body.post.geometry = response.body.features[0].geometry;
+        let post = new Post(req.body.post);
+		post.properties.description = `<strong><a href="/posts/${post._id}">${post.title}</a></strong><p>${post.location}</p><p>${post.description.substring(0, 20)}...</p>`;
+        await post.save();          
         req.session.success = "Post created successfully!";
         res.redirect(`/posts/${post.id}`);
     },
@@ -96,7 +99,7 @@ module.exports = {
                     limit: 1
                 })
                 .send();
-            post.coordinates = response.body.features[0].geometry.coordinates;
+            post.geometry = response.body.features[0].geometry;
             post.location = req.body.post.location;
 
         }
@@ -104,6 +107,7 @@ module.exports = {
         post.title = req.body.post.title;
         post.description = req.body.post.description;
         post.price = req.body.post.price;
+		post.properties.description = `<strong><a href="/posts/${post._id}">${post.title}</a></strong><p>${post.location}</p><p>${post.description.substring(0, 20)}...</p>`;
         post.save();
 
         res.redirect(`/posts/${post.id}`);
