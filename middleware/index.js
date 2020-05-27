@@ -15,12 +15,12 @@ module.exports = {
         req.session.error = 'Permission denied';
         return res.redirect('/');
     },
-    checKIfUserExists: async (req, res, next) => {
-        let userExists =  await User.findOne({'email': req.body.email});
-        if(userExists) {
-            req.session.error = 'That email has already been registered';
-            return res.redirect('back');
+    isLoggedIn: (req, res, next) => {
+        if(req.isAuthenticated()) {
+            return next();
         }
-        next();
+        req.session.error = 'Login required!';
+        req.session.redirectTo = req.originalUrl;
+        res.redirect('/login');
     }
 }

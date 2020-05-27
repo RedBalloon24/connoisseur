@@ -4,6 +4,7 @@ const createError = require('http-errors');
 const express = require('express');
 const engine = require('ejs-mate');
 const path = require('path');
+const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
@@ -44,6 +45,7 @@ app.set('view engine', 'ejs');
 // set public assests directory
 app.use(express.static('public'));
 
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
