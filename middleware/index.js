@@ -17,9 +17,7 @@ module.exports = {
         return res.redirect('/');
     },
     isLoggedIn: (req, res, next) => {
-        if(req.isAuthenticated()) {
-            return next();
-        }
+        if(req.isAuthenticated()) return next();
         req.session.error = 'Login required!';
         req.session.redirectTo = req.originalUrl;
         res.redirect('/login');
