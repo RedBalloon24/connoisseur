@@ -67,7 +67,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // set local variables middleware
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
   // req.user = {
   //   // '_id' : '5ecc09dde4cede254bdad645',
   //   // 'username' : 'bob3'

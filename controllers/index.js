@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Post = require('../models/post');
 const passport = require('passport');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
+const util = require('util');
 
 module.exports = {
     // GET /
@@ -65,5 +66,23 @@ module.exports = {
     async getProfile(req, res, next) {
         const posts = await Post.find().where('author').equals(req.user._id).limit(10).exec();
         res.render('profile', { posts });
+    },
+    //PUT /profile
+    async updateProfile(req, res, next) {
+        const { username, email } = req.body;
+        const { currentUser } = res.locals;
+        if(username) {
+            currentUser.username = username;
+        }
+        if(email) {
+            currentUser.email = email;
+        }        
+
+        await currentUser.save();
+        
+        const login = util.promisify(req.login.bind(req));
+        await login(currentUser);
+        req.session.success = 'Profile successfully updated!';
+        res.redirect('/profile')
     }
 }
