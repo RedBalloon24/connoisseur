@@ -5,6 +5,10 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const util = require('util');
 const { cloudinary } = ('../cloudinary');
 const { deleteProfileImage } = require('../middleware');
+const crypto = require('crypto');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 module.exports = {
     // GET /
@@ -92,5 +96,40 @@ module.exports = {
         await login(currentUser);
         req.session.success = 'Profile successfully updated!';
         res.redirect('/profile')
+    },
+    //GET /forgot-password
+    getForgotPw(req, res, next) {
+        res.render('users/forgot')
+    },
+    //PUT /forgot-password
+    async putForgotPw(req, res, next) {
+        const token = await crypto.randomBytes(20).toString('hex');
+        const user = await User.findOne({ email: req.body.email });
+        if(!user) {
+            req.session.error = 'No account with that email address exists.'
+            return res.redirect('/forgot-password');
+        }
+        user.resetPasswordToken = token;
+        //expires in one hour
+        user.resetPasswordExpires = Date.now() + 3600000; 
+        await user.save();
+
+        const message = {
+            to: user.email,
+            from: 'Bike Shop Admin <your@email.com>',
+            subject: 'Bike Shop - Forgot Password  Reset',
+            text: `You are receiving this because you (or someone else) 
+            have requested the reset of the password for your account.
+            Please click on the following link, or copy and paste it 
+            into your browser to complete the process: 
+            http://${req.headers.host}/reset/${token} 
+            If you did not request this, please ignore this email and 
+            your password will remain unchanged.`.replace(/            /g, ''),
+            //html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+        };
+        await sgMail.send(message);
+        
+        req.session.success = `An email has been sent to ${email} with further instructions.`
+        res.redirect('/forgot-password')
     }
 }

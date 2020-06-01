@@ -17,7 +17,9 @@ const {
   postLogin, 
   getLogout,
   getProfile,
-  updateProfile
+  updateProfile,
+  getForgotPw,
+  putForgotPw
 } = require('../controllers/index');
 
 
@@ -52,14 +54,10 @@ router.put('/profile',
 );
 
 /* GET forgot password /forgot */
-router.get('/forgot', (req, res, next) => {
-  res.send('GET /forgot')
-});
+router.get('/forgot', asyncErrorHandler(getForgotPw));
 
 /* PUT forgot password /forgot */
-router.put('/forgot', (req, res, next) => {
-  res.send('PUT /forgot')
-});
+router.put('/forgot', asyncErrorHandler(putForgotPw));
 
 /* GET reset password /reset/:token */
 router.get('/reset/:token', (req, res, next) => {
