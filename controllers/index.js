@@ -116,7 +116,7 @@ module.exports = {
 
         const message = {
             to: user.email,
-            from: 'Bike Shop Admin <your@email.com>',
+            from: 'RedBalloon_Designs@outlook.com',
             subject: 'Bike Shop - Forgot Password  Reset',
             text: `You are receiving this because you (or someone else) 
             have requested the reset of the password for your account.
@@ -129,7 +129,62 @@ module.exports = {
         };
         await sgMail.send(message);
         
-        req.session.success = `An email has been sent to ${email} with further instructions.`
+        req.session.success = `An email has been sent to ${user.email} with further instructions.`
         res.redirect('/forgot-password')
+    },
+    //GET /reset/:token 
+    async getReset(req, res, next) {
+        const { token } = req.params;
+        const user = await User.findOne({ 
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() }
+         });
+        
+        if(!user) {
+            req.session.error = 'Password reset token is invalid or expired!';
+            return res.redirect('/forgot-password');
+        }
+
+        res.render('users/reset', { token });
+    },
+    //PUT /reset/:token 
+    async putReset(req, res, next) {
+        const { token } = req.params;
+        const user = await User.findOne({ 
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() }
+         });
+        
+        if(!user) {
+            req.session.error = 'Password reset token is invalid or expired!';
+            return res.redirect('/forgot-password');
+        }
+
+        if(req.body.password === req.body.confirm) {
+            await user.setPassword(req.body.password);
+            user.resetPasswordToken = null;
+            user.resetPasswordExpires = null;
+            await user.save();
+            const login = util.promisify(req.login.bind(req));
+            await login(user);
+        } else {
+            req.session.error = 'Passwords do not match.';
+            return res.redirect(`/reset/${ token }`);
+        }
+
+        const message = {
+            to: user.email,
+            from: 'RedBalloon_Designs@outlook.com',
+            subject: 'Bike Shop - Password Changed',
+            text: `Hello,
+            This email is to confirm that the password for your account has just been changed.
+            
+            If you did not make this change, please hit reply and notify us at once.`.replace(/            /g, '')
+          };
+          
+          await sgMail.send(message);
+        
+          req.session.success = 'Password successfully updated!';
+          res.redirect('/');
     }
 }

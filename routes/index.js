@@ -19,7 +19,9 @@ const {
   getProfile,
   updateProfile,
   getForgotPw,
-  putForgotPw
+  putForgotPw,
+  getReset,
+  putReset
 } = require('../controllers/index');
 
 
@@ -54,19 +56,15 @@ router.put('/profile',
 );
 
 /* GET forgot password /forgot */
-router.get('/forgot', asyncErrorHandler(getForgotPw));
+router.get('/forgot-password', getForgotPw);
 
 /* PUT forgot password /forgot */
-router.put('/forgot', asyncErrorHandler(putForgotPw));
+router.put('/forgot-password', asyncErrorHandler(putForgotPw));
 
 /* GET reset password /reset/:token */
-router.get('/reset/:token', (req, res, next) => {
-  res.send('GET /reset/:token')
-});
+router.get('/reset/:token', asyncErrorHandler(getReset));
 
 /* PUT reset password /reset/:token */
-router.put('/reset/:token', (req, res, next) => {
-  res.send('PUT /reset/:token')
-});
+router.put('/reset/:token', asyncErrorHandler(putReset));
 
 module.exports = router;
