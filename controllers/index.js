@@ -14,7 +14,7 @@ module.exports = {
     // GET /
     async landingPage(req, res, next) {
         const posts = await Post.find({});
-        res.render('index', { posts, mapBoxToken, title: 'Bike Shop - Home' })
+        res.render('index', { posts, mapBoxToken, title: 'Connoisseur' })
     },
     // GET /register
     getRegister(req, res, next) {
@@ -30,7 +30,7 @@ module.exports = {
 			const user = await User.register(new User(req.body), req.body.password);
 			req.login(user, function(err) {
 				if (err) return next(err);
-				req.session.success = `Welcome to Bike Shop, ${user.username}!`;
+				req.session.success = `Welcome to Connoisseur, ${user.username}!`;
 				res.redirect('/');
 			});
 		} catch(err) {
@@ -117,7 +117,7 @@ module.exports = {
         const message = {
             to: user.email,
             from: 'RedBalloon_Designs@outlook.com',
-            subject: 'Bike Shop - Forgot Password  Reset',
+            subject: 'Connoisseur - Forgot Password  Reset',
             text: `You are receiving this because you (or someone else) 
             have requested the reset of the password for your account.
             Please click on the following link, or copy and paste it 
@@ -175,7 +175,7 @@ module.exports = {
         const message = {
             to: user.email,
             from: 'RedBalloon_Designs@outlook.com',
-            subject: 'Bike Shop - Password Changed',
+            subject: 'Connoisseur - Password Changed',
             text: `Hello,
             This email is to confirm that the password for your account has just been changed.
             

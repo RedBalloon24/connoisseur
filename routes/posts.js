@@ -3,7 +3,12 @@ const router = express.Router();
 const multer = require('multer');
 const { storage } = require('../cloudinary');
 const upload = multer({ storage });
-const { asyncErrorHandler, isLoggedIn, isPostAuthor } = require('../middleware/index');
+const { 
+    asyncErrorHandler, 
+    isLoggedIn, 
+    isPostAuthor, 
+    searchAndFilterPosts 
+} = require('../middleware/index');
 const { 
     postIndex, 
     postNew, 
@@ -15,7 +20,7 @@ const {
 } = require('../controllers/posts');
 
 /* GET posts index /posts */
-router.get('/', asyncErrorHandler(postIndex));
+router.get('/', asyncErrorHandler(searchAndFilterPosts), asyncErrorHandler(postIndex));
 
 /* GET posts new /posts/new */
 router.get('/new', isLoggedIn, postNew);

@@ -1,9 +1,9 @@
-<% layout('layouts/post-show-layout') -%>
+<% layout('layouts/post-show') -%>
 <h1><%= post.title %></h1>
 <div>Price: <%= post.price %></div>
 <div><%= post.description %></div>
 <div><%= post.location %></div>
-<div>
+<!-- <div><%= post.type %></div> -->
     
 </div>
     <% for(let i = 0; i < 5; i++) { %>
@@ -18,7 +18,7 @@
     <%= `${post.avgRating} star${post.avgRating === 1 ? '' : 's'}` %>
 <div>
     <% post.images.forEach((image) => { %>
-        <img src="<%= image.url %>" alt="bike image" width="200px">
+        <img src="<%= image.url %>" alt="wine image" width="200px">
     <% }); %>
 </div>
 <div id='map'></div>
