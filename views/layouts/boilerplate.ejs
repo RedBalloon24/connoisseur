@@ -2,20 +2,112 @@
 <html>
     <head>
         <title><%= title %></title>
+         <!-- Bootstrap4 -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+         <!-- Theme Styles -->
+        <link rel="stylesheet" href="/wrapkit/css/style.css" />
+        <link rel="stylesheet" href="/wrapkit/css/index-landingpage/landing-page.css" />
+        <!-- Custom Styles -->
         <link rel="stylesheet" href="/stylesheets/style.css" />
         <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
         <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script> 
+        <!-- FontAwesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     </head>
     <body>
+        <!-- Main Wrapper -->
         <% include ../partials/navbar %>
         <% include ../partials/flash-messages %>
+
+        <!-- Page Wrapper -->
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <!-- Static Slider 10  -->
+                <div class="static-slider-head" style="background-image: url(/images/form-banners/banner1/banner-bg8.jpg)">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 col-md-6 align-self-center text-center" data-aos="fade-up" data-aos-duration="1200">
+                                <h1 class="title"><i class="fas fa-wine-bottle"></i>Connoisseur</h1>
+                                <h4 class="subtitle outline-text">Buy, Sell and Review Wine</h4> 
+                                <a href="/posts" class="btn btn-danger-gradiant m-r-20 btn-md m-t-30 font-16 font-weight-bold">Shop</a><a href="/register" class="btn btn-md m-t-30 btn-danger-gradiant font-16 font-weight-bold">Sell</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Wrapper  -->
+
         <%- body -%>
+
+         <!-- Footer  -->
+        <div class="footer4 b-t spacer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 m-b-30">
+                    <h5 class="m-b-20">Address</h5>
+                        <p>100 Connoisseur Ln, CA 94051</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 m-b-30">
+                        <h5 class="m-b-20">Phone</h5>
+                        <p><a href="tel:55555555" class="link">55 555 5555</a></p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 m-b-30">
+                        <h5 class="m-b-20">Email</h5>
+                        <p><a href="mailto:info@connoisseur.enjoy" class="link">info@connoisseur.enjoy</a></p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h5 class="m-b-20">Social</h5>
+                        <div class="round-social light">
+                            <a href="#" class="link"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="link"><i class="fab fa-google-plus"></i></a>
+                            <a href="#" class="link"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="f4-bottom-bar">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex font-14">
+                                <div class="m-t-10 m-b-10 copyright">All Rights Reserved by Connoisseur</div>
+                                <div class="links ml-auto m-t-10 m-b-10">
+                                    <a href="#" class="p-10 p-l-0">Terms of Use</a>
+                                    <a href="#" class="p-10">Legal Disclaimer</a>
+                                    <a href="#" class="p-10">Privacy Policy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer  -->
+        <!-- /Main Wrapper -->
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         
         <% if(title === 'Posts Index') { %> 
             <script src="/javascripts/post-index.js"></script>
         <% } %>
+    
+        <script src="/wrapkit/js/custom.min.js"></script>
+        <script type="text/javascript">
+            $('a').on('click', function (e) {
+                var $anchor = $(this);
+                $('html, body').stop().animate({
+                scrollTop: $($anchor.attr('href')).offset().top - 90
+                }, 1000);
+                e.preventDefault();
+            });
+        </script>
+        <!-- /Scripts -->
+
     </body>
 </html>

@@ -23,7 +23,12 @@ async function seedPosts() {
             },  
             avgRating: random5,          
             author: '5ece822ea7c46e263ed13d42',
-            type: 'Red'
+            type: 'Red',
+            images: [
+                {
+                    url: 'https://images.unsplash.com/photo-1569919659476-f0852f6834b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
+                }
+            ]
         }
         let post = new Post(postData);
 		post.properties.description = `<strong><a href="/posts/${post._id}">${title}</a></strong><p>${post.location}</p><p>${description.substring(0, 20)}...</p>`;
