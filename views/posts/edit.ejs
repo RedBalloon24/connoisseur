@@ -8,6 +8,15 @@
     <div>
         <input type="number" name="post[price]" step=".01" placeholder="Price" value="<%= post.price %>">
     </div>
+    <div> 
+        <label for="type">Choose a wine type:</label>
+        <select name="post[type]">
+            <option value="red">Red</option>
+            <option value="white">White</option>
+            <option value="sparkling">Sparkling</option>
+            <option value="fortified"> Fortified</option>
+        </select>   
+    </div>
     <div>
         <input type="file" id="imageUpload" accept="images/*" name="images" multiple>
         <div>

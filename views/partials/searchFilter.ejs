@@ -4,7 +4,7 @@
         <label for="search">Search</label>
         <input type="text" name="search" id="search" placeholder="search" value="<%= query.search %>">
     </fieldset>
-    <!-- <fieldset>
+    <fieldset>
         <legend>Wine Type</legend>
         <div>
             <input type="radio" name="type" id="red" value="red" <%= query.type === 'red' ? 'checked' : '' %>>
@@ -25,12 +25,13 @@
         <div>
             <a href="#" id="clear-type">clear</a>
         </div>   
-    </fieldset> -->
+    </fieldset>
     <fieldset>
         <div>
             <label for="location">Location</label>
             <input type="text" name="location" id="location" placeholder="Address" value="<%= query.location %>">
-            <small><a href="#">use my location</a></small>
+            <small><a href="#" id="find-me">use my location</a></small><br/>
+            <p id="status"></p>
         </div>
         <legend>Distance (miles)</legend>
         <div>
@@ -76,3 +77,5 @@
     </div>
     <input type="submit">
 </form>
+
+<script src="/javascripts/use-my-location.js"></script>

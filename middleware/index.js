@@ -90,13 +90,22 @@ const middleware = {
             }
 
             if(location) {
-                const response = await geocodingClient
-                  .forwardGeocode({
-                    query: location,
-                    limit: 1
-                  })
-                  .send();
-                const { coordinates } = response.body.features[0].geometry;
+                let coordinates;
+                try {
+                    if(typeof JSON.parse(location) === 'number') {
+                        throw new Error;
+                      }
+                      location = JSON.parse(location);
+                      coordinates = location;
+                } catch(err){
+                    const response = await geocodingClient
+                        .forwardGeocode({
+                            query: location,
+                            limit: 1
+                        })
+                        .send();
+                    coordinates = response.body.features[0].geometry.coordinates;
+                }
                 let maxDistance = distance || 25;
                 // convert distance to meters (one mile is approximately 1609.34 meters)
                 maxDistance *= 1609.34;
@@ -122,9 +131,9 @@ const middleware = {
                 dbQueries.push({ avgRating: { $in: avgRating } });
             }
 
-            // if(type) {
-            //     dbQueries.push({ type: { type } });
-            // }
+            if(type) {
+                dbQueries.push({ type: { $in: type } });
+            }
 
             res.locals.dbQuery = dbQueries.length ? { $and: dbQueries } : {};
         }

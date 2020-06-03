@@ -75,7 +75,7 @@ module.exports = {
     },
     //GET /profile
     async getProfile(req, res, next) {
-        const posts = await Post.find().where('author').equals(req.user._id).limit(10).exec();
+        const posts = await Post.find().where('author').equals(req.user._id).limit(10).sort({ _id: -1 }).exec();
         res.render('profile', { posts });
     },
     //PUT /profile

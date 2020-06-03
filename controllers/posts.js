@@ -12,11 +12,11 @@ module.exports = {
         let posts = await Post.paginate(dbQuery, {
             page: req.query.page || 1,
             limit: 10,
-            sort: '_id'
+            sort: '-_id'
         });
         posts.page = Number(posts.page);
         if(!posts.docs.length && res.locals.query) {
-            res.locals.error = 'No results found'
+            res.locals.error = 'No results found';
         }
         res.render('posts/index', { posts, mapBoxToken, title: 'Posts Index' });
     },
@@ -107,6 +107,7 @@ module.exports = {
         post.title = req.body.post.title;
         post.description = req.body.post.description;
         post.price = req.body.post.price;
+        post.type = req.body.post.type;
 		post.properties.description = `<strong><a href="/posts/${post._id}">${post.title}</a></strong><p>${post.location}</p><p>${post.description.substring(0, 20)}...</p>`;
         await post.save();
 
