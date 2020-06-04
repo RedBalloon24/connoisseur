@@ -3,7 +3,7 @@
 
 <form action="/posts" method="POST" enctype="multipart/form-data">
     <div>
-        <input type="text" name="post[title]" placeholder="Title">
+        <input type="text" name="post[title]" placeholder="Title" required>
     </div>
     <div> 
         <label for="type">Choose a wine type:</label>
@@ -15,16 +15,16 @@
         </select>   
     </div>
     <div>
-        <input type="number" name="post[price]" step=".01" placeholder="Price">
+        <input type="number" name="post[price]" step=".01" placeholder="Price" required>
     </div>
     <div>
-        <input type="file" accept="images/*" name="images" multiple>
+        <input type="file" accept="images/*" name="images" multiple required>
     </div>
     <div>
-        <textarea name="post[description]" placeholder="Description"></textarea>
+        <textarea name="post[description]" placeholder="Description" required></textarea>
     </div>
     <div>
-        <input type="text" name="post[location]" placeholder="Location">
+        <input type="text" name="post[location]" placeholder="Location" required>
     </div>
     <button>Submit</button>
 </form>

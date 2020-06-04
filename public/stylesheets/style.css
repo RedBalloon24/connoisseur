@@ -7,12 +7,22 @@ a {
   color: #00B7FF;
 } */
 
+.topbar {
+  background: black;
+  position: fixed;
+}
+
 .logo {
   color: #fff;
 }
 
 .logo:hover {
   color: #fff;
+}
+
+.static-slider-head {
+  min-height: 740px;
+  background-image: url(/images/form-banners/banner1/banner-bg5.jpg);
 }
 
 #map {
