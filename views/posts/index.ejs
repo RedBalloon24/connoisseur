@@ -1,40 +1,124 @@
 <% layout('layouts/postsIndex') -%>
 
 
-<div class="container-fluid" style="padding: 6%;">
+
+<style>
+    body {
+      font-family: "Lato", sans-serif;
+    }
+    
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: whitesmoke;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+    
+    .sidebar a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+    
+    .sidebar a:hover {
+      color: #f1f1f1;
+    }
+    
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+    
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+    }
+    
+    .openbtn:hover {
+      background-color: #444;
+    }
+    
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+    }
+    
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+      .sidebar {padding-top: 15px;}
+      .sidebar a {font-size: 18px;}
+    }
+    </style>
+    
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <% include ../partials/searchFilter %>
+    </div>
+    
+    <div id="main" style="padding-top: 115px;">
+      <button class="openbtn" onclick="openNav()">  ☰ Search / Filter</button>  
+    </div>
+    
+
+<div class="container-fluid" style="padding-left: 20%;">
     <div class="row">
-        <div class="col-md-12">
-            <h1>Find a Wine</h1>
-        </div>
-        <div class="col-4 border-danger" style=" border-style: solid; border-width: 4px; border-radius: 2%; padding: 4%; background-color: whitesmoke;" >        
-            <% include ../partials/searchFilter %>
-        </div>
         <div class="col-8">
-            <div id="map"></div>
+            <div class="shadow" id="map"></div>
         </div>
     </div>
+</div>
+<div class="container-fluid" style="padding-left: 20%; padding-right: 20%;">
 
     <% include ../partials/paginatePosts %>
 
+     <div class="blog-home2 row m-t-40">
     <% posts.docs.forEach((post) => { %>
-        <div class="card">  
-            <div class="card-header border-danger text-danger"><%= post.type %></div>
-            <div class="card-body">
-                <h5 class="card-title"><%= post.title %></h5>
-                <p class="card-text">Price: <%= post.price %></p>
-                <p class="card-text"><%= post.description %></p>
-                <p class="card-text"><%= post.location %></p>
-                <a href="/posts/<%= post.id %>">View more</a>
-            </div> 
+        <div class="col-md-3">
+            <div class="card shadow" data-aos="flip-left" data-aos-duration="1200">
+                <a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" alt="wrappixel kit" class="card-img-top"></a>
+                <div class="date-pos bg-danger-gradiant">
+                    <%= post.price %>€
+                </div>
+                <h5 class="font-medium my-3 px-3">
+                    <a href="/posts/<%= post.id %>" class="link"><%= post.title %></a>
+                </h5>
+                <p class="my-1 px-3"><%= post.location %></p>
+            </div>
         </div>
     <% }) %>
 
     <% include ../partials/paginatePosts %>
 
+     </div>
 </div>
-
 <script>
     mapboxgl.accessToken = "<%= mapBoxToken %>";
     var posts = { features: <%- JSON.stringify(posts.docs) %> };
+
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    }
 </script>
 <script src="/javascripts/allPostsClusterMap.js"></script>

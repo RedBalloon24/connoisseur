@@ -9,7 +9,8 @@ a {
 
 .topbar {
   background: black;
-  position: fixed;
+  position: absolute;
+  
 }
 
 .logo {
@@ -21,7 +22,7 @@ a {
 }
 
 .static-slider-head {
-  min-height: 740px;
+  min-height: 840px;
   background-image: url(/images/form-banners/banner1/banner-bg5.jpg);
 }
 
@@ -46,4 +47,16 @@ a {
 .profile-image {
   width: 100px;
   border-radius: 50%;
+}
+
+.modal-dialog.cascading-modal {
+  margin-top: 0;
+}
+
+.modal-dialog {
+  min-height: 0 !important;
+  margin: 1.75rem auto;
+  margin-top: 0;
+  padding-top: 10%;
+  padding-bottom: 4%;
 }

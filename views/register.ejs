@@ -1,22 +1,46 @@
 <% layout('layouts/boilerplate') -%>
 
-<form action="/register" method="POST" enctype="multipart/form-data">
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" placeholder="username" value="<%= username %>" required>
+  <div class="modal-dialog cascading-modal">
+    <div class="modal-content border border-light">
+      <div class="modal-c-tabs">
+        <ul class="nav nav-tabs md-tabs bg-dark">
+          <li class="nav-item">
+            <a class="nav-link active text-danger font-weight-bold bg-dark"><i class="fas fa-user mr-1"></i>Register</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="tab-pane active">
+          <div class="modal-body mb-1">
+            <form action="/register" method="POST" enctype="multipart/form-data"> 
+              <div class="md-form form-sm mb-4">
+                <i class="fas fa-user prefix"></i>
+                <input type="text" id="username" name="username" class="form-control form-control-sm" placeholder="Username" value="<%= username %>" required>
+            </div>
+              <div class="md-form form-sm mb-4">
+                <i class="fas fa-lock prefix"></i>
+                <input type="password" id="password" name="password" class="form-control form-control-sm" placeholder="Password" required>
+            </div>  
+            <div class="md-form form-sm mb-5 ">
+                <i class="fas fa-envelope prefix"></i>
+                <input type="email" id="email" name="email" class="form-control form-control-sm" value="<%= email %>" placeholder="Email" required>                  
+            </div>
+            <div class="md-form form-sm mb-4">
+              <i class="fas fa-image prefix"></i>
+              <input type="file" id="image" name="image">
+            </div>
+              <div class="text-center mt-2">
+                  <button type="submit" class="btn btn-outline-dark">Sign up</button>
+              </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <div class="text-center text-md-right mt-1">
+                <p>Already a member? <a href="/login" class="text-danger">Log In</a></p>
+              </div>
+              <button type="button" class="btn btn-outline-danger ml-auto">Close</button>
+            </div>
+          </div>    
+        </div>
     </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="password" required>
-    </div>
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="email" value="<%= email %>" required>
-    </div>
-    <div>
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image">
-    </div>
-
-    <input type="submit">
-</form>
+  </div>

@@ -13,16 +13,16 @@
         <div class="row m-t-40">
             <% recentPosts.forEach(post => { %>
                 <div class="col-md-4">
-                    <div class="card" data-aos="flip-left" data-aos-duration="1200">
-                        <a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" alt="wrappixel kit" class="card-img-top"></a>
+                    <div class="card shadow" data-aos="flip-left" data-aos-duration="1200" >
+                        <a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" alt="wrappixel kit" class="card-img-top" ></a>
                         <div class="date-pos bg-danger-gradiant">
                             <%= moment(post._id).format('MMM') %><span><%= moment(post._id).format('D') %></span>
                         </div>
-                        <h5 class="font-medium my-3">
+                        <h5 class="font-medium my-3 px-3">
                             <a href="/posts/<%= post.id %>" class="link"><%= post.title %></a>
                         </h5>
-                        <p class="my-1"><%= post.location %></p>
-                        <a href="/posts/<%= post.id %>" class="linking text-danger my-1">Learn More<i class="ti-arrow-right"></i></a>
+                        <p class="my-1 px-3"><%= post.location %></p>
+                        <a href="/posts/<%= post.id %>" class="linking text-danger my-1 px-3">Learn More<i class="ti-arrow-right"></i></a>
                     </div>
                 </div>
             <% }) %>
