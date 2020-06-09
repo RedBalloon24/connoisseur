@@ -12,3 +12,25 @@ clear.addEventListener('click', e => {
 $('.clear-rating').click(function() {
     $(this).siblings('.input-no-rate').click();
 });
+
+
+// add click listener for clearing of wine type from search field
+const clearType = document.getElementById('clear-type');
+
+clearType.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector('input[name=type]').value ='';
+    document.querySelector('input[type=radio]:checked').checked = false;
+})
+
+// sidebar filter open and close functions
+function openNav() {
+    document.getElementById("mySidebar").style.width = "280px";
+    document.getElementById("main").style.marginLeft = "250px";
+
+}
+
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+}

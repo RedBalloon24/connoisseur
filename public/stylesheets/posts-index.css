@@ -4,3 +4,86 @@
     border-top-right-radius: calc(.25rem - 1px);
     height: 210px !important;
 }
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: whitesmoke;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    z-index: 3;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.openbtn:hover {
+    background-color: #444;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidebar {
+        padding-top: 15px;
+        width: 400px;
+    }
+}
+
+.Flatsearch {
+    align-items: center;
+    background:white none repeat scroll 0 0;
+    border: black 2px solid;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+    padding: 15px;
+    transition: all 0.5s ease 0s;
+}
+.Flatsearch:hover, .Flatsearch:focus {
+    box-shadow: 0 0 7px rgb(71, 66, 66); 
+}
+
+.Flatsearch button, .Flatsearch input {
+    -webkit-appearance: none;
+        -moz-appearance: none;
+            appearance: none;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    outline: 0;
+}

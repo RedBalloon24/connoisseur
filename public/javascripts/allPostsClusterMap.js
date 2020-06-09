@@ -6,9 +6,9 @@ var map = new mapboxgl.Map({
 });
 
 // Add search capability
-map.addControl(new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken
-}));
+// map.addControl(new MapboxGeocoder({
+//     accessToken: mapboxgl.accessToken
+// }));
 
 map.on('load', function() {
     // Add a new source from our GeoJSON data and set the

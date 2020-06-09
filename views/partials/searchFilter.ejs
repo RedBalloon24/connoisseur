@@ -1,11 +1,7 @@
 
-<form action="/posts" method="GET">    
+<form action="/posts" method="GET" class="px-3">    
     <fieldset>
-        <legend>Keyword Search</legend>
-        <input type="text" name="search" id="search" placeholder="Search here..." value="<%= query.search %>">
-    </fieldset><br />
-    <fieldset>
-        <legend>Wine Type</legend>
+        <legend class="text-danger">Wine Type</legend>
         <div>
             <input type="radio" name="type" id="red" value="red" <%= query.type === 'red' ? 'checked' : '' %>>
             <label for="red">Red</label>
@@ -17,22 +13,26 @@
         <div>
             <input type="radio" name="type" id="sparkling" value="sparkling" <%= query.type === 'sparkling' ? 'checked' : '' %>>
             <label for="sparkling">Sparkling</label>
-        </div>    
+        </div> 
+        <div>
+            <input type="radio" name="type" id="rose" value="rose" <%= query.type === 'rose' ? 'checked' : '' %>>
+            <label for="rose">Rose</label>
+        </div>   
         <div>
             <input type="radio" name="type" id="fortified" value="fortified" <%= query.type === 'fortified' ? 'checked' : '' %>>
             <label for="fortified">Fortified</label>
         </div>  
         <div>
-            <a href="#" id="clear-type">clear</a>
+            <button href="#" id="clear-type" class="text-dark btn-sm btn-info shadow">Clear</button>
         </div>   
     </fieldset><br />
     <fieldset>
         <div>
-            <input type="text" name="location" id="location" placeholder="Address/Location" value="<%= query.location %>"><br />
-            <small><a href="#" id="find-me">use my location</a></small><br/>    
+            <input type="text" style="border: none;"  name="location" id="location" placeholder="Address/Location" value="<%= query.location %>"><br />
+            <button href="#" id="find-me" class="text-light btn-sm btn-dark shadow">use my location</button><br/>    
             <p id="status"></p>
         </div>
-        <legend>Location</legend>
+        <legend class="text-danger">Location</legend>
         <div>
             <input type="radio" name="distance" id="distance25" value="25" <%= query.distance === '25' ? 'checked' : '' %>>
             <label for="distance25">25 mile radius</label>
@@ -46,18 +46,18 @@
             <label for="distance100">100 mile radius</label>
         </div>     
         <div>
-            <a href="#" id="clear-distance">clear</a>
+            <button href="#" id="clear-distance" class="text-dark btn-sm btn-info shadow">Clear</button>
         </div>   
     </fieldset><br />
     <fieldset>
-		<legend>Price</legend>
+		<legend class="text-danger">Price</legend>
 		<label for="min">Min</label>
-        <input type="number" id="min" name="price[min]" min="0" max="10000" step="1" placeholder="Min" value="<%= query.price ? query.price.min : '' %>">
+        <input type="number" id="min" style="border: none;" name="price[min]" min="0" max="10000" step="1" placeholder="Min" value="<%= query.price ? query.price.min : '' %>"><br>
 		<label for="max">Max</label>
-		<input type="number" id="max" name="price[max]" min="0" max="10000" step="1" placeholder="Max" value="<%= query.price ? query.price.max : '' %>">
+		<input type="number" id="max" style="border: none;" name="price[max]" min="0" max="10000" step="1" placeholder="Max" value="<%= query.price ? query.price.max : '' %>">
 	</fieldset><br />
     <fieldset class="starability-basic">
-        <legend>Rating</legend>
+        <legend class="text-danger">Rating</legend>
         <input type="radio" id="zero-stars" class="input-no-rate" name="avgRating[]" value="0" checked aria-label="No rating." <%= query.avgRating && query.avgRating.includes('0') ? 'checked' : '' %> />
 		<input type="radio" id="one-star" name="avgRating[]" value="1" <%= query.avgRating && query.avgRating.includes('1') ? 'checked' : '' %> />
 		<label for="one-star">1 star</label>
@@ -69,12 +69,12 @@
 		<label for="four-stars">4 stars</label>
 		<input type="radio" id="five-stars" name="avgRating[]" value="5" <%= query.avgRating && query.avgRating.includes('5') ? 'checked' : '' %> />
         <label for="five-stars">5 stars</label>
-        <a href="#" class="clear-rating" type="button">Clear Rating</a>
+        <button href="#" class="clear-rating text-dark btn-sm btn-info shadow" type="button">Clear</button>
     </fieldset><br />
-    <div>
-        <a href="/posts" class="btn-sm btn-warning">Reset Form</a>
+    <div class="mt-4">
+        <button href="/posts" class="btn-sm btn-warning shadow">Reset</button>
+        <input type="submit" class="btn-sm btn-success shadow">    
     </div>
-    <input type="submit">
 </form>
 
 <script src="/javascripts/use-my-location.js"></script>

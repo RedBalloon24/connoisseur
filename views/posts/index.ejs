@@ -1,95 +1,37 @@
 <% layout('layouts/postsIndex') -%>
 
+<div id="mySidebar" class="sidebar text-dark">
+  <a href="javascript:void(0)" class="closebtn text-dark" onclick="closeNav()">×</a>
+    <% include ../partials/searchFilter %>
+</div>
 
-
-<style>
-    body {
-      font-family: "Lato", sans-serif;
-    }
-    
-    .sidebar {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: whitesmoke;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 60px;
-    }
-    
-    .sidebar a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 25px;
-      color: #818181;
-      display: block;
-      transition: 0.3s;
-    }
-    
-    .sidebar a:hover {
-      color: #f1f1f1;
-    }
-    
-    .sidebar .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
-    
-    .openbtn {
-      font-size: 20px;
-      cursor: pointer;
-      background-color: #111;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-    }
-    
-    .openbtn:hover {
-      background-color: #444;
-    }
-    
-    #main {
-      transition: margin-left .5s;
-      padding: 16px;
-    }
-    
-    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-    @media screen and (max-height: 450px) {
-      .sidebar {padding-top: 15px;}
-      .sidebar a {font-size: 18px;}
-    }
-    </style>
-    
-    <div id="mySidebar" class="sidebar">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <% include ../partials/searchFilter %>
-    </div>
-    
-    <div id="main" style="padding-top: 115px;">
-      <button class="openbtn" onclick="openNav()">  ☰ Search / Filter</button>  
-    </div>
-    
-
-<div class="container-fluid" style="padding-left: 20%;">
+<div class="container-fluid" style="padding-left: 15%; padding-top: 115px;">
     <div class="row">
-        <div class="col-8">
-            <div class="shadow" id="map"></div>
+        <div class="col-10">
+          <div class="row">
+            <div class="col-10" style="padding-left: 10%;">
+              <form class="Flatsearch" action="/posts" method="GET">    
+              <input type="text" name="search" id="search" placeholder="Search here..." value="<%= query.search %>" />
+              <button type="submit"><i class="fas fa-search text-danger"></i></button>
+          </form>
+            </div> 
+            
+          <button class="Flatsearch" onclick="openNav()"><i class="fas fa-filter filter"></i>Filter</button> 
+          </div>
+          
+          <br>
+          <br>
+          <div class="shadow" id="map" style="z-index: 1;"></div>
         </div>
     </div>
 </div>
-<div class="container-fluid" style="padding-left: 20%; padding-right: 20%;">
 
+<div class="container-fluid" style="padding-left: 17%; padding-right: 17%; padding-bottom: 110px;">
     <% include ../partials/paginatePosts %>
 
      <div class="blog-home2 row m-t-40">
     <% posts.docs.forEach((post) => { %>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-sm-4">
             <div class="card shadow" data-aos="flip-left" data-aos-duration="1200">
                 <a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" alt="wrappixel kit" class="card-img-top"></a>
                 <div class="date-pos bg-danger-gradiant">
@@ -102,23 +44,14 @@
             </div>
         </div>
     <% }) %>
-
-    <% include ../partials/paginatePosts %>
-
      </div>
-</div>
-<script>
-    mapboxgl.accessToken = "<%= mapBoxToken %>";
-    var posts = { features: <%- JSON.stringify(posts.docs) %> };
 
-    function openNav() {
-      document.getElementById("mySidebar").style.width = "250px";
-      document.getElementById("main").style.marginLeft = "250px";
-    }
-    
-    function closeNav() {
-      document.getElementById("mySidebar").style.width = "0";
-      document.getElementById("main").style.marginLeft= "0";
-    }
+     <% include ../partials/paginatePosts %>
+</div>
+
+
+<script>
+  mapboxgl.accessToken = "<%= mapBoxToken %>";
+  var posts = { features: <%- JSON.stringify(posts.docs) %> }
 </script>
 <script src="/javascripts/allPostsClusterMap.js"></script>
