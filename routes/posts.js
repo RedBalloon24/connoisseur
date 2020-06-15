@@ -26,7 +26,7 @@ router.get('/', asyncErrorHandler(searchAndFilterPosts), asyncErrorHandler(postI
 router.get('/new', isLoggedIn, postNew);
 
 /* POST posts create /posts */
-router.post('/', isLoggedIn, upload.array('images', 4), asyncErrorHandler(postCreate));
+router.post('/', isLoggedIn, upload.array('images', 1), asyncErrorHandler(postCreate));
 
 /* GET posts show /posts/:id */
 router.get('/:id', asyncErrorHandler(postShow));

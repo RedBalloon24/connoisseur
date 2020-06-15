@@ -63,7 +63,6 @@ module.exports = {
                 console.log(err)
                 return next(err);
             }
-            req.session.success = `Welcome back, ${user.username}!`;
             const redirectUrl = req.session.redirectTo || '/';
             delete req.session.redirectTo;
             res.redirect(redirectUrl);

@@ -21,7 +21,9 @@
     <body>
         <!-- Main Wrapper -->
         <% include ../partials/navbar %>
-        <% include ../partials/flash-messages %>
+        <% if(title === 'Login' || title === 'Register') { %> 
+            <% include ../partials/flash-messages %>
+        <% } %>
         
         <!-- Page Wrapper -->
         <% if(title === 'Connoisseur') { %> 

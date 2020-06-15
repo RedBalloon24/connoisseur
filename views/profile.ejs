@@ -1,6 +1,10 @@
 <% layout('layouts/postsIndex') -%>
 
-<h1><img src="<%= currentUser.image.secure_url %>" alt="<%= currentUser.image.secure_url %>'s profile image" class="profile-image text-capitalize"><%= currentUser.username %>'s Profile</h1>
+<% if(!currentUser.image.secure_url) { %> 
+	<h1><img src="/images/default-profile.jpg" class="profile-image text-capitalize"><%= currentUser.username %>'s Profile</h1>
+<% } else { %>
+	<h1><img src="<%= currentUser.image.secure_url %>" class="profile-image text-capitalize"><%= currentUser.username %>'s Profile</h1>
+<% } %>
 
 <p>Recent Posts:</p>
 <% posts.forEach(function(post) { %>

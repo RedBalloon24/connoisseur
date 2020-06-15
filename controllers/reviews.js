@@ -6,7 +6,7 @@ module.exports = {
     async reviewCreate(req, res, next) {
         let post = await Post.findById(req.params.id).populate('reviews').exec();
         let reviewed = post.reviews.filter(review => {
-            return review.author.equals(req.user._id)
+            return review.author.equals(req.user._id);
         }).length;
         if(reviewed) {
             req.session.error = 'Only one review per post allowed';

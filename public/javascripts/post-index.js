@@ -23,14 +23,16 @@ clearType.addEventListener('click', e => {
     document.querySelector('input[type=radio]:checked').checked = false;
 })
 
-// sidebar filter open and close functions
-function openNav() {
-    document.getElementById("mySidebar").style.width = "280px";
-    document.getElementById("main").style.marginLeft = "250px";
+// add functions for toggling and closing of sidebar filter
+$('#filter').click(function(e){
+    e.stopPropagation();
+     $('#mySidebar').toggleClass('sidebar2');
+});
 
-}
+$('#filterList').click(function(e){
+    e.stopPropagation();
+});
 
-function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-}
+$('closebtn, body, html').click(function(e){
+       $('#mySidebar').removeClass('sidebar2');
+});

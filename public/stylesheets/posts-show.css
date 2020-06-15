@@ -28,3 +28,7 @@
 .clear-rating {
     display: block;
 }
+
+.new-review-border {
+    border-left: 5px solid #00C851;
+}
