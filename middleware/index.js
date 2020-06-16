@@ -41,30 +41,32 @@ const middleware = {
     },
     isValidPassword: async (req, res, next) => {
         const { user } = await User.authenticate()(req.user.email, req.body.currentPassword);
+
 		if (user) {
-			res.locals.user = user;
+			res.locals.currentUser = user;
 			next();
 		} else {
             middleware.deleteProfileImage(req);
             req.session.error = 'Incorrect current password!';
-			return res.redirect('/profile');
+			return res.redirect(`/users/${user._id}`);
 		}
 	},
     changePassword: async (req, res, next) => {
+
         const { newPassword, passwordConfirmation } = req.body
         if(newPassword && !passwordConfirmation) {
             middleware.deleteProfileImage(req);
             req.session.error = 'Missing password confirmation!';
-            return res.redirect('/profile');
+            return res.redirect(`/users/${user._id}`);
         } else if(newPassword && passwordConfirmation) {
-            const { user } = res.locals;
+            const { currentUser } = res.locals;
             if(newPassword === passwordConfirmation) {
-                await user.setPassword(newPassword);
+                await currentUser.setPassword(newPassword);
                 next();
             } else {
                 middleware.deleteProfileImage(req);
                 req.session.error = 'New passwords must match!';
-                return res.redirect('/profile')
+                return res.redirect(`/users/${user._id}`)
             }
         } else {
             next();

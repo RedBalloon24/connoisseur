@@ -75,8 +75,9 @@ module.exports = {
     },
     //GET /profile
     async getProfile(req, res, next) {
-        const posts = await Post.find().where('author').equals(req.user._id).limit(10).sort({ _id: -1 }).exec();
-        res.render('profile', { posts });
+        const foundUser = await User.findById(req.params.id);
+        const posts = await Post.find().where('author').equals(foundUser._id).limit(10).sort({ _id: -1 }).exec();
+        res.render('profile', { user: foundUser, posts});
     },
     //PUT /profile
     async updateProfile(req, res, next) {
@@ -84,8 +85,9 @@ module.exports = {
         const { currentUser } = res.locals;
         if(username) currentUser.username = username;
         if(email) currentUser.email = email;
+
         if(req.file) {
-            if(currentUser.image.public_id) await cloudinary.v2.uploader.destroy(currentUser.image.public_id);
+            if (currentUser.image.public_id) await cloudinary.v2.uploader.destroy(currentUser.image.public_id);
             const { secure_url, public_id } = req.file;
             currentUser.image = { secure_url, public_id }
         }
@@ -95,9 +97,10 @@ module.exports = {
         const login = util.promisify(req.login.bind(req));
         await login(currentUser);
         req.session.success = 'Profile successfully updated!';
-        res.redirect('/profile')
+        res.redirect(`/users/${currentUser._id}`)
+
+        
     },
-    //GET /forgot-password
     getForgotPw(req, res, next) {
         res.render('users/forgot')
     },

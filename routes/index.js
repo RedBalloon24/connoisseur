@@ -44,16 +44,19 @@ router.post('/login', asyncErrorHandler(postLogin));
 router.get('/logout', getLogout)
 
 /* GET profile /profile */
-router.get('/profile', isLoggedIn, asyncErrorHandler(getProfile));
+router.get('/users/:id', isLoggedIn, asyncErrorHandler(getProfile));
 
 /* PUT profile /profile */
-router.put('/profile', 
+router.put('/users/:id', 
   isLoggedIn, 
   upload.single('image'), 
   asyncErrorHandler(isValidPassword), 
   asyncErrorHandler(changePassword), 
   asyncErrorHandler(updateProfile)
 );
+
+/* GET profile /profile */
+router.delete('/users/:id', isLoggedIn, asyncErrorHandler(getProfile));
 
 /* GET forgot password /forgot */
 router.get('/forgot-password', getForgotPw);

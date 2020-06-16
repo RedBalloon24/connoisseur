@@ -101,7 +101,7 @@
                         <% if(!currentUser){ %>                    
                             <a class="text-capitalize"><%= review.author.username %></a>
                         <% } else { %>
-                            <a href="/users/profile" class="text-capitalize"><%= review.author.username %></a>
+                            <a href="/users/<%= review.author.id %>" class="text-capitalize"><%= review.author.username %></a>
                         <% } %>
                     </strong>
                     <span class="float-right"><%= moment(review.createdAt).fromNow() %></span>

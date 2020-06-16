@@ -1,48 +1,152 @@
 <% layout('layouts/postsIndex') -%>
 
-<% if(!currentUser.image.secure_url) { %> 
-	<h1><img src="/images/default-profile.jpg" class="profile-image text-capitalize"><%= currentUser.username %>'s Profile</h1>
-<% } else { %>
-	<h1><img src="<%= currentUser.image.secure_url %>" class="profile-image text-capitalize"><%= currentUser.username %>'s Profile</h1>
-<% } %>
+<style>
+	::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+</style>
 
-<p>Recent Posts:</p>
-<% posts.forEach(function(post) { %>
-    <div>
-        <a href="/posts/<%= post.id %>"><%= post.title %></a>
-    </div>
-<% }) %>
+<div class="conatiner-fluid" style="padding-left: 15%; padding-right: 15%; padding-top: 50px; padding-bottom: 50px;">
+	<div class="card card-body bg-light shadow">
+		<% if(!user.image.secure_url) { %> 
+			<div class="text-center">
+				<img src="/images/default-profile2.jpg" class="profile-image shadow">
+			</div>
+		<% } else { %>
+			<div class="text-center">
+				<img src="<%= user.image.secure_url %>" class="profile-image shadow">
+			</div>
+			
+		<% } %>
+		<h1 class="text-center font-weight-bold mt-3"><%= user.username %></h1>
+		<div class="row mt-3 text-center">
+				<div class="col-md-4">
+					<h4 class="text-danger font-weight-bold">Posts</h4>
+					<p class="text-center">10</p>	
+				</div>
+				<div class="col-md-4">
+					<h4 class="text-danger font-weight-bold">Reviews</h4>
+					<p class="text-center">9</p>	
+				</div>
+		
+				<div class="col-md-4">
+					<h4 class="text-danger font-weight-bold">Followers</h4>
+					<p class="text-center">0</p>	
+				</div>
+		</div>
 
-<p>Update Profile:</p>
-
-<form action="/profile?_method=PUT" method="POST" enctype="multipart/form-data">
-	<div>
-		<label for="username">Username:</label>
-		<input type="text" id="username" class="text-capitalize" name="username" placeholder="username" value="<%= currentUser.username %>" autofocus required>
+		<div class="text-center">
+			<% if(currentUser && user._id.equals(currentUser._id)){ %>
+			<a href="#collapseEditProfile" class="btn btn-warning btn-sm" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseEditProfile">Update Profile</a>
+			<div class="collapse" id="collapseEditProfile">
+				<div class="card card-body mt-3">
+					<div class="" style="padding-left: 30%; padding-right: 30%;">
+						<form action="/users/<%= currentUser._id %>?_method=PUT" method="POST" class="mt-1" enctype="multipart/form-data">
+							<div class="form-group">
+								<label class="form-class" for="username">Username:</label>
+								<div class="input-group mb-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text"><i class="fas fa-user"></i></div>
+									</div>
+									<input type="text" id="username" class="text-capitalize form-control shadow" name="username" placeholder="username" value="<%= currentUser.username %>" autofocus required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="form-class" for="current-password">Current Password (required):</label>
+								<div class="input-group mb-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text"><i class="fas fa-lock"></i></div>
+									</div>
+									<input type="password" id="current-password" name="currentPassword" class="form-control shadow" placeholder="current password" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="form-class" for="new-password">New Password:</label>
+								<div class="input-group mb-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text"><i class="fas fa-lock"></i></div>
+									</div>
+									<input type="password" id="new-password" name="newPassword" class="form-control shadow" placeholder="new password">
+								</div>							
+							</div>
+							<div class="form-group">
+								<label class="form-class" for="password-confirmation">Password Confirmation:</label>
+								<div class="input-group mb-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text"><i class="fas fa-lock"></i></div>
+									</div>
+									<input type="password" id="password-confirmation" name="passwordConfirmation" class="form-control shadow" placeholder="password confirmation">
+								</div>
+							</div>
+							<div class="form-group" id="validation-message"></div>
+							<div class="form-group">
+								<label class="form-class" for="email">Email:</label>
+								<div class="input-group mb-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text"><i class="fas fa-envelope"></i></div>
+									</div>
+									<input type="text" id="email" name="email" class="form-control shadow" placeholder="email" value="<%= currentUser.email %>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="form-class" for="image">Image:</label>
+								<div class="input-group mb-4">
+									<input type="file" id="image" name="image"  class="form-control shadow pt-1">
+								</div>
+							</div>
+							<div class="form-group">
+							<button class="btn btn-xs btn-warning shadow" type="submit" id="update-profile">Submit</button> 
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<% } %>
+		</div>
 	</div>
-	<div>
-		<label for="current-password">Current Password (required to update profile):</label>
-		<input type="password" id="current-password" name="currentPassword" placeholder="current password" required>
+	<div class="card card-body bg-light shadow">
+		<h3 class="text-center">Activity Feed:</h3>
+		<div class="row">
+			<div class="col-3">
+				<ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+					<li class="nav-item pill-1">
+						<a class="nav-link active" id="v-pills-posts-tab" data-toggle="pill" href="#v-pills-posts" role="tab" aria-controls="v-pills-posts" aria-selected="true">Posts</a>
+					</li>
+					<li class="nav-item pill-2">
+						<a class="nav-link" id="v-pills-reviews-tab" data-toggle="pill" href="#v-pills-reviews" role="tab" aria-controls="v-pills-reviews" aria-selected="false">Reviews</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-9">
+				<div class="tab-content" id="v-pills-tabContent">
+					<div class="tab-pane fade show active" style="height: 500px; overflow-y: scroll; overflow-x: hidden;" id="v-pills-posts" role="tabpanel" aria-labelledby="v-pills-posts-tab">
+						<% if(posts.length === 0) { %> 
+							<p>User has not created any posts.</p>
+						<% } else { %>
+							<div class="row pl-3">
+							<% posts.forEach(function(post) { %>
+								<div class="shadow col-5 mx-1 my-1" data-aos="flip-left" data-aos-duration="1200" >
+									<div class="row">
+										<div class="card-body">
+											<a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" width="25%" class="rounded-image"></a>
+										</div>
+										<div class="card-body float-right mt-3">
+											<a href="/posts/<%= post.id %>" class="link text-dark font-weight-bold text-capitalize"><%= post.title %></a>
+											<p class="text-danger text-capitalize"><%= post.location %></p>
+										</div>
+									</div>
+								</div>									
+						<% }) %>
+					</div>
+					<% } %>
+					</div>
+					<div class="tab-pane fade" id="v-pills-reviews" role="tabpanel" aria-labelledby="v-pills-reviews-tab" style="height: 500px; overflow-y: scroll; overflow-x: hidden;">
+						<p>User has not created any reviews.</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div>
-		<label for="new-password">New Password:</label>
-		<input type="password" id="new-password" name="newPassword" placeholder="new password">
-	</div>
-	<div>
-		<label for="password-confirmation">Password Confirmation:</label>
-		<input type="password" id="password-confirmation" name="passwordConfirmation" placeholder="password confirmation">
-	</div>
-	<div id="validation-message"></div>
-	<div>
-		<label for="email">Email:</label>
-		<input type="text" id="email" name="email" placeholder="email" value="<%= currentUser.email %>">
-	</div>
-	<div>
-		<label for="image">Image:</label>
-		<input type="file" id="image" name="image">
-	</div>
-
-	<input type="submit" id="update-profile">
-</form>
 
 <script src="/javascripts/profile.js"></script>
