@@ -40,7 +40,8 @@ module.exports = {
             })
             .send();
         req.body.post.geometry = response.body.features[0].geometry;
-        req.body.post.author = req.user._id;
+        req.body.post.author = {id: req.user._id, username: req.user.username};
+
         let post = new Post(req.body.post);
 		post.properties.description = `<strong><a href="/posts/${post._id}">${post.title}</a></strong><p>${post.location}</p><p>${post.description.substring(0, 20)}...</p>`;
         await post.save();          

@@ -21,7 +21,8 @@ const {
   getForgotPw,
   putForgotPw,
   getReset,
-  putReset
+  putReset,
+  postFollow
 } = require('../controllers/index');
 
 
@@ -55,8 +56,11 @@ router.put('/users/:id',
   asyncErrorHandler(updateProfile)
 );
 
-/* GET profile /profile */
-router.delete('/users/:id', isLoggedIn, asyncErrorHandler(getProfile));
+// /* DELETE profile /profile */
+// router.delete('/users/:id', isLoggedIn, asyncErrorHandler(deleteProfile));
+
+/* POST follow /profile/follow */
+router.post('/users/:id/follow', isLoggedIn, asyncErrorHandler(postFollow));
 
 /* GET forgot password /forgot */
 router.get('/forgot-password', getForgotPw);

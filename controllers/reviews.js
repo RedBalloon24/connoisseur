@@ -12,7 +12,11 @@ module.exports = {
             req.session.error = 'Only one review per post allowed';
             return res.redirect(`/posts/${post.id}`);
         }
+        const { id, title} = post;
+
         req.body.review.author = req.user._id;
+        req.body.review.location = id;
+        req.body.review.postTitle = title;
         let review = await Review.create(req.body.review);
         post.reviews.push(review);
         post.save();

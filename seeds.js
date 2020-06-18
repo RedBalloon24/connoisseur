@@ -1,11 +1,14 @@
 const faker = require('faker');
 const Post =  require('./models/post');
+const Review =  require('./models/review');
 const cities = require('cities.json');
 
 async function seedPosts() {
     // remove previous post data
     await Post.deleteMany({});
     console.log('Removed post data')
+    await Review.deleteMany({});
+    console.log('Removed review data')
     // create 40 new posts
     for(const i of new Array(600)) {
         const random1000 = Math.floor(Math.random() * 1000);
@@ -22,7 +25,7 @@ async function seedPosts() {
 				coordinates: [cities[random1000].lng, cities[random1000].lat],
             },  
             avgRating: random5,          
-            author: '5ece822ea7c46e263ed13d42',
+            author: { 'id': '5eeb42d45a47a3f05ae62d74', 'username': 'Maria'},
             type: 'Red',
             images: [
                 {

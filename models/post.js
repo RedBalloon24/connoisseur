@@ -30,8 +30,11 @@ const PostSchema = new Schema({
         description: String
     },
     author: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'  
+        id: {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String 
     },
     reviews: [
         {

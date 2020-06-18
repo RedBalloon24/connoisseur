@@ -1,33 +1,49 @@
 <% layout('layouts/postsIndex') -%>
-<div class="conatiner-fluid" style="padding-left: 15%; padding-top: 115px; padding-right: 15%;">
-<h1>New Post!</h1>
 
-<form action="/posts" method="POST" enctype="multipart/form-data">
-    <div>
-        <input type="text" name="post[title]" placeholder="Title" required>
-    </div>
-    <div> 
-        <label for="type">Choose a wine type:</label>
-        <select name="post[type]">
-            <option value="red">Red</option>
-            <option value="white">White</option>
-            <option value="sparkling">Sparkling</option>
-            <option value="fortified"> Fortified</option>
-        </select>   
-    </div>
-    <div>
-        <input type="number" name="post[price]" step=".01" placeholder="Price" required>
-    </div>
-    <div>
-        <input type="file" accept="images/*" name="images" multiple required>
-    </div>
-    <div>
-        <textarea name="post[description]" placeholder="Description" required></textarea>
-    </div>
-    <div>
-        <input type="text" name="post[location]" placeholder="Location" required>
-    </div>
-    <button>Submit</button>
-</form>
 
-</div>
+<div class="modal-dialog cascading-modal new-post">
+    <h1 class="text-center font-weight-bold ">Create New Post</h1>
+
+    <div class="modal-content border border-light">
+      <div>
+        <div class="tab-pane active">
+          <div class="modal-body mb-1">
+            <form action="/posts" method="POST" enctype="multipart/form-data">
+                <div class="md-form form-sm mb-3 ">
+                    <input class="form-control form-control-sm" type="text" name="post[title]" placeholder="Title" required>
+                </div>
+                <div class="md-form form-sm mb-3" style="display: none;">
+                    <input class="form-control form-control-sm" type="text" name="post[author.username]" placeholder="<%= currentUser.username %>" disabled>
+                </div>
+                <div class="md-form form-sm mb-3">
+                    <label for="type">Choose a wine type:</label><br><br>
+                    <select name="post[type]">
+                        <option value="red">Red</option>
+                        <option value="white">White</option>
+                        <option value="white">Rose</option>
+                        <option value="sparkling">Sparkling</option>
+                        <option value="fortified"> Fortified</option>
+                    </select> 
+                </div>
+                <div class="md-form form-sm mb-5">
+                    <input class="form-control form-control-sm" type="number" name="post[price]" step=".01" placeholder="Price" required>
+                </div>
+                <div class="md-form form-sm mb-3">
+                    <textarea class="form-control form-control-sm" name="post[description]" placeholder="Description" rows="5" required></textarea>
+                </div>
+                <div class="md-form form-sm mb-3">
+                    <label for="image">Please select <u>ONE</u> image:</label><br><br>
+                    <input class="form-control form-control-sm pt-1" type="file" id="image" accept="images/*" name="images" multiple required>
+                </div>
+                <div class="md-form form-sm mb-4">
+                    <input class="form-control form-control-sm" type="text" name="post[location]" placeholder="Location" required>
+                </div>
+                <div class="text-center mt-2">
+                    <button type="submit" class="btn btn-outline-danger">Submit</button>
+                </div>
+            </form>
+            </div>
+          </div>    
+        </div>
+    </div>
+  </div>

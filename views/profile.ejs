@@ -1,14 +1,35 @@
 <% layout('layouts/postsIndex') -%>
 
 <style>
-	::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* make scrollbar transparent */
-}
+
 </style>
 
 <div class="conatiner-fluid" style="padding-left: 15%; padding-right: 15%; padding-top: 50px; padding-bottom: 50px;">
+	
+
 	<div class="card card-body bg-light shadow">
+		<div class="like-btn float-right">
+			<form action="/users/<%= user._id %>/follow" method="POST">
+				<div class="btn-group">
+					<% if(currentUser && user._id.equals(currentUser._id)){ %>
+				<% } else { %>
+					<% if(currentUser && user.followers.some(follower => {
+						return follower.equals(currentUser._id)
+					})) { %>
+						<button class="btn btn-sm btn-secondary shadow">
+						Following
+						</button>
+					<% } else { %>
+						<button class="btn btn-sm btn-secondary shadow">
+							<i class="fas fa-plus"></i> Follow
+						</button>
+					<% } %>
+					
+					<% } %>
+				</div>
+			</form>
+		</div>
+	
 		<% if(!user.image.secure_url) { %> 
 			<div class="text-center">
 				<img src="/images/default-profile2.jpg" class="profile-image shadow">
@@ -17,24 +38,76 @@
 			<div class="text-center">
 				<img src="<%= user.image.secure_url %>" class="profile-image shadow">
 			</div>
-			
 		<% } %>
-		<h1 class="text-center font-weight-bold mt-3"><%= user.username %></h1>
+		<h1 class="text-center font-weight-bold mt-3 text-capitalize"><%= user.username %></h1>
 		<div class="row mt-3 text-center">
-				<div class="col-md-4">
+			<div class="col-md-4">
+				<% if(posts.length === 0)  { %> 
 					<h4 class="text-danger font-weight-bold">Posts</h4>
-					<p class="text-center">10</p>	
-				</div>
-				<div class="col-md-4">
-					<h4 class="text-danger font-weight-bold">Reviews</h4>
-					<p class="text-center">9</p>	
-				</div>
-		
-				<div class="col-md-4">
-					<h4 class="text-danger font-weight-bold">Followers</h4>
 					<p class="text-center">0</p>	
-				</div>
+				<% } else { %>
+					<h4 class="text-danger font-weight-bold">Posts</h4>
+					<p class="text-center"><%= posts.length %></p>
+				<% } %>
+			</div>
+			<div class="col-md-4">
+				<% if(reviews.length === 0)  { %> 
+					<h4 class="text-danger font-weight-bold">Reviews</h4>
+					<p class="text-center">0</p>	
+				<% } else { %>
+					<h4 class="text-danger font-weight-bold">Reviews</h4>
+					<p class="text-center"><%= reviews.length %></p>
+				<% } %>	
+			</div>
+			<div class="col-md-4">
+				<% if(user.followers.length === 0)  { %> 
+					<h4 class="text-danger font-weight-bold">Followers</h4>
+					<p type="button" data-toggle="modal" data-target="#followers">
+						<span>0</span>
+					</p>	
+				<% } else { %>
+					<h4 class="text-danger font-weight-bold">Followers</h4>
+					<p type="button" data-toggle="modal" data-target="#followers">
+						<span><%= user.followers.length %></span>
+					</p>
+				<% } %>	
+			</div>
 		</div>
+
+		<div id="followers" class="modal fade mt-5" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<table class="table table-striped">
+							<thead>
+							<tr>
+								<th class="text-capitalize"><%= user.username%>'s followers:</th>
+							</tr>
+							</thead>
+							<tbody>
+							<% user.followers.forEach(function(follower) { %>
+								<tr>
+									<td class="text-capitalize">
+										<a href="/users/<%= follower._id %>"><img src="<%= user.image.secure_url %>" class="rounded-image3 shadow mr-2"><%= follower.username %></a></td>
+								</tr>
+							<% }); %>
+							<% if (user.followers.length === 0) { %>
+								<tr>
+									<td><em>No followers yet.</em></td>
+								</tr>
+							<% } %>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>    
 
 		<div class="text-center">
 			<% if(currentUser && user._id.equals(currentUser._id)){ %>
@@ -121,6 +194,7 @@
 			<div class="col-9">
 				<div class="tab-content" id="v-pills-tabContent">
 					<div class="tab-pane fade show active" style="height: 500px; overflow-y: scroll; overflow-x: hidden;" id="v-pills-posts" role="tabpanel" aria-labelledby="v-pills-posts-tab">
+						
 						<% if(posts.length === 0) { %> 
 							<p>User has not created any posts.</p>
 						<% } else { %>
@@ -129,24 +203,58 @@
 								<div class="shadow col-5 mx-1 my-1" data-aos="flip-left" data-aos-duration="1200" >
 									<div class="row">
 										<div class="card-body">
-											<a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" width="25%" class="rounded-image"></a>
+											<div class="card-title">
+												<a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" width="25%" class="rounded-image"></a>
+											</div>
 										</div>
-										<div class="card-body float-right mt-3">
-											<a href="/posts/<%= post.id %>" class="link text-dark font-weight-bold text-capitalize"><%= post.title %></a>
-											<p class="text-danger text-capitalize"><%= post.location %></p>
+										<div class="card-body mt-3">
+											<div class="card-text">
+												<a href="/posts/<%= post.id %>" class="link text-dark font-weight-bold text-uppercase"><%= post.title %></a><br>
+												<p style="margin-bottom: 0	;">from</p>
+												<p class="text-danger text-capitalize"><%= post.location %></p>
+											</div>
+						
+				
+				
 										</div>
 									</div>
 								</div>									
 						<% }) %>
 					</div>
 					<% } %>
-					</div>
-					<div class="tab-pane fade" id="v-pills-reviews" role="tabpanel" aria-labelledby="v-pills-reviews-tab" style="height: 500px; overflow-y: scroll; overflow-x: hidden;">
+				</div>					
+				<div class="tab-pane fade" id="v-pills-reviews" role="tabpanel" aria-labelledby="v-pills-reviews-tab" style="height: 500px; overflow-y: scroll; overflow-x: hidden;">
+					<% if(reviews.length === 0)  { %> 
 						<p>User has not created any reviews.</p>
-					</div>
+					<% } else { %>
+						<div class="row pl-3">
+						<% reviews.forEach((review) =>  { %>
+							<div class="shadow col-10 mx-1 my-1" data-aos="flip-left" data-aos-duration="1200" >
+									
+								<div class="card-body">
+									<div class="row">
+										<p class="text-uppercase"><i class="fas fa-long-arrow-alt-right mr-3"></i><a href="/posts/<%= review.location %>"><%= review.postTitle %></a></p>
+									</div>
+									<h4 class="text-capitalize"><%= review.title %></h4>
+										<h5 class="text-danger text-capitalize"><%= review.body %></h5>
+										<p class="text-capitalize">Reviewed by: <%= user.username %></p>
+										<% for(let i = 0; i < 5; i++) { %>
+											<% if(i < review.rating) { %>
+												<i class="fas fa-star" style="color: goldenrod !important;"></i>
+											<% } else { %>
+												<i class="far fa-star" style="color: goldenrod !important;"></i>
+											<% } %>
+										<% } %>				
+									</div>
+							</div>							
+						<% }) %>
+							</div>
+						<% } %>
+				</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 <script src="/javascripts/profile.js"></script>

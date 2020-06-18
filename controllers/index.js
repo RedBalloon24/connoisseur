@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Post = require('../models/post');
+const Review = require('../models/review');
 const passport = require('passport');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const util = require('util');
@@ -7,6 +8,7 @@ const { cloudinary } = ('../cloudinary');
 const { deleteProfileImage } = require('../middleware');
 const crypto = require('crypto');
 const sgMail = require('@sendgrid/mail');
+const { lookupService } = require('dns');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
@@ -76,8 +78,9 @@ module.exports = {
     //GET /profile
     async getProfile(req, res, next) {
         const foundUser = await User.findById(req.params.id);
-        const posts = await Post.find().where('author').equals(foundUser._id).limit(10).sort({ _id: -1 }).exec();
-        res.render('profile', { user: foundUser, posts});
+        const posts = await Post.find().where('author.id', foundUser._id).sort({ _id: -1 }).exec();
+        const reviews = await Review.find().where('author', foundUser._id).sort({ _id: -1 }).exec();
+        res.render('profile', { user: foundUser, posts, reviews});
     },
     //PUT /profile
     async updateProfile(req, res, next) {
@@ -101,6 +104,51 @@ module.exports = {
 
         
     },
+    //POST /profile/follow
+    async postFollow(req, res, next) {
+        let foundUser = await User.findById(req.params.id);
+        const { currentUser } = res.locals;
+
+       
+    
+        foundUserFollow = foundUser.followers.some(follower => {
+           
+            return follower.equals(req.user)
+        });
+
+        
+        if(foundUserFollow) {
+            foundUser.followers.pull(req.user);
+        } else {
+            foundUser.followers.push(req.user);
+        }
+
+
+        await foundUser.save()
+        res.redirect('/users/' + foundUser._id, { user: foundUser})
+
+
+        
+        // let userId = req.user._id;
+        // let user = await User.findById(req.params.id)
+        
+        // if(userId === user.following) req.session.error = 'You cannot follow yourself';
+        // if(!user) return req.session.error = 'DENIED!!';
+
+        // if(user.followers.filter(follower => 
+        //     follower.user.toString() === req.user._id ).length > 0) {
+        //         req.session.error = 'You already follow this person';
+        // }
+
+        // await user.followers.unshift({userId});
+        // await user.save()
+
+        // await user.follow(userId)
+        // await res.json({followedUser: req.user.toProfileJSONFor(user)});
+
+        // res.redirect(`/users/${currentUser._id}`)
+    },
+    //GET /forgot-password
     getForgotPw(req, res, next) {
         res.render('users/forgot')
     },
