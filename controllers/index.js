@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Post = require('../models/post');
 const Review = require('../models/review');
+const Notification = require('../models/notification');
 const passport = require('passport');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const util = require('util');
@@ -77,10 +78,12 @@ module.exports = {
     },
     //GET /profile
     async getProfile(req, res, next) {
-        const foundUser = await User.findById(req.params.id);
-        const posts = await Post.find().where('author.id', foundUser._id).sort({ _id: -1 }).exec();
-        const reviews = await Review.find().where('author', foundUser._id).sort({ _id: -1 }).exec();
-        res.render('profile', { user: foundUser, posts, reviews});
+        const user = await User.findById(req.params.id);
+        const posts = await Post.find().where('author.id', user._id).sort({ _id: -1 }).exec();
+        const reviews = await Review.find().where('author', user._id).sort({ _id: -1 }).exec();
+
+        res.render('profile', { user, posts, reviews});
+
     },
     //PUT /profile
     async updateProfile(req, res, next) {
@@ -100,54 +103,44 @@ module.exports = {
         const login = util.promisify(req.login.bind(req));
         await login(currentUser);
         req.session.success = 'Profile successfully updated!';
-        res.redirect(`/users/${currentUser._id}`)
-
-        
+        res.redirect(`/users/${currentUser._id}`);        
     },
     //POST /profile/follow
     async postFollow(req, res, next) {
-        let foundUser = await User.findById(req.params.id);
-        const { currentUser } = res.locals;
-
-       
-    
-        foundUserFollow = foundUser.followers.some(follower => {
-           
+        let user = await User.findById(req.params.id);
+  
+        userFollow = user.followers.some(follower => {
             return follower.equals(req.user)
         });
 
-        
-        if(foundUserFollow) {
-            foundUser.followers.pull(req.user);
+        if(userFollow) {
+            user.followers.pull(req.user);
         } else {
-            foundUser.followers.push(req.user);
+            user.followers.push(req.user);
         }
 
-
-        await foundUser.save()
-        res.redirect('/users/' + foundUser._id, { user: foundUser})
-
-
-        
-        // let userId = req.user._id;
-        // let user = await User.findById(req.params.id)
-        
-        // if(userId === user.following) req.session.error = 'You cannot follow yourself';
-        // if(!user) return req.session.error = 'DENIED!!';
-
-        // if(user.followers.filter(follower => 
-        //     follower.user.toString() === req.user._id ).length > 0) {
-        //         req.session.error = 'You already follow this person';
-        // }
-
-        // await user.followers.unshift({userId});
-        // await user.save()
-
-        // await user.follow(userId)
-        // await res.json({followedUser: req.user.toProfileJSONFor(user)});
-
-        // res.redirect(`/users/${currentUser._id}`)
+        await user.save()
+        res.redirect(`/users/${user._id}`, { user })
     },
+    //GET /notifications
+    async getNotifications(req, res, next) {
+        let user = await User.findById(req.user._id).populate({
+            path: 'notifications',
+            options: { sort: { "_id": -1 } }
+        }).exec();
+
+        let allNotifications = user.notifications;
+        res.render('notifications/index', { allNotifications });
+
+    },
+    //GET /notifications/:id
+    async getHandleNotifications(req, res, next) {
+        let notification = await Notification.findById(req.params.id);
+        notification.isRead = true;
+
+        notification.save();
+        res.redirect(`/posts/${notification.postId}`);
+    },   
     //GET /forgot-password
     getForgotPw(req, res, next) {
         res.render('users/forgot')

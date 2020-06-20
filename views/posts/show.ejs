@@ -3,7 +3,7 @@
 <div class="conatiner-fluid" style="padding-left: 15%; padding-right: 15%; padding-top: 50px ;">
     <h1 class="text-capitalize" style="font-size: 64px;"><%= post.title %></h1>            
     <div class="text-uppercase" style="font-size: 25px; margin-top: 15px; margin-bottom: 30px;"><%= post.type %> wine from <%= post.location %></div>
-    <div class="text-uppercase" style="font-size: 15px; margin-top: 15px; margin-bottom: 30px;">by: <%= post.author.username %></div>
+    <div class="text-uppercase" style="font-size: 15px; margin-top: 15px; margin-bottom: 30px;">by: <a href="/users/<%= post.author.id %>" class="text-dark"><%= post.author.username %></a></div>
 
 
     <div class="row d-flex justify-content-around">

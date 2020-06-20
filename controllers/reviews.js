@@ -19,6 +19,20 @@ module.exports = {
         req.body.review.postTitle = title;
         let review = await Review.create(req.body.review);
         post.reviews.push(review);
+
+        let user = await User.findById(req.user._id).populate('followers').exec();;
+
+        let newNotification = {
+            username: req.user.username,
+            postId: id,
+        }
+            
+        for(const follower of user.followers) {
+            let notification = await Notification.create(newNotification);
+            follower.notifications.push(notification);
+            follower.save();
+        }
+
         post.save();
         req.session.success = 'Review created successfully!';
         res.redirect(`/posts/${post.id}`);

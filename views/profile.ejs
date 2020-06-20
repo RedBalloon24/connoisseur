@@ -12,19 +12,18 @@
 			<form action="/users/<%= user._id %>/follow" method="POST">
 				<div class="btn-group">
 					<% if(currentUser && user._id.equals(currentUser._id)){ %>
-				<% } else { %>
-					<% if(currentUser && user.followers.some(follower => {
-						return follower.equals(currentUser._id)
-					})) { %>
-						<button class="btn btn-sm btn-secondary shadow">
-						Following
-						</button>
 					<% } else { %>
-						<button class="btn btn-sm btn-secondary shadow">
-							<i class="fas fa-plus"></i> Follow
-						</button>
-					<% } %>
-					
+						<% if(currentUser && user.followers.some(follower => {
+							return follower.equals(currentUser._id)
+						})) { %>
+							<button class="btn btn-sm btn-secondary shadow">
+							Following
+							</button>
+						<% } else { %>
+							<button class="btn btn-sm btn-secondary shadow">
+								<i class="fas fa-plus"></i> Follow
+							</button>
+						<% } %>
 					<% } %>
 				</div>
 			</form>

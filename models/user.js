@@ -16,56 +16,43 @@ const UserSchema = new Schema({
         },
         public_id: String
     },
+    notifications: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Notification'
+
+        }
+    ],
     following: [
         {
             id: {
                 type: Schema.Types.ObjectId,
-                ref: "User"
+                ref: 'User'
             },
             username: String
         }
     ],
     followers: [
         {
-            id: {
                 type: Schema.Types.ObjectId,
-                ref: "User"
-            },
-            username: String
+                ref: 'User'
+            
         }
-    ],
+    ], 
+ 
     resetPasswordToken: String,
     resetPasswordExpires: Date
 });
 
-UserSchema.plugin(passportLocalMongoose, { usernameField: "email"});
+UserSchema.plugin(passportLocalMongoose, { usernameField: 'email'});
 
-// UserSchema.methods.follow = function(id){
-//     if(this.following.indexOf(id) === -1){
-//       this.following.push(id);
-//     }
-  
-//     return this.save();
+// UserSchema.methods.toProfileJSONFor = function(user){
+//     return {
+//       username: this.username,
+//       bio: this.bio,
+//       image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
+//       following: user ? user.isFollowing(this._id) : false
+//     };
 // };
-
-// UserSchema.methods.unfollow = function(id){
-//     this.following.remove(id);
-//     return this.save();
-// };
-
-// UserSchema.methods.isFollowing = function(id){
-//     return this.following.some(function(followId){
-//       return followId.toString() === id.toString();
-//     });
-// };
-
-UserSchema.methods.toProfileJSONFor = function(user){
-    return {
-      username: this.username,
-      bio: this.bio,
-      image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
-      following: user ? user.isFollowing(this._id) : false
-    };
-};
 
 module.exports = mongoose.model('User', UserSchema);

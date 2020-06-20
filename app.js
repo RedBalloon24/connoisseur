@@ -70,7 +70,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // set local variables middleware
-app.use(function(req, res, next) {
+app.use(async function(req, res, next) {
   // req.user = {
   //   // '_id' : '5ecc09dde4cede254bdad645',
   //   // 'username' : 'bob3'
@@ -80,6 +80,10 @@ app.use(function(req, res, next) {
   //   'username' : 'bob'
   // }
   res.locals.currentUser = req.user;
+  if(req.user) {
+      let user = await User.findById(req.user._id).populate('notifications', null, { isRead: false }).exec();
+      res.locals.notifications = user.notifications.reverse();
+  }
   // set default page title
   res.locals.title = 'Connoisseur';
   // set success flash message

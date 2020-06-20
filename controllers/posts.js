@@ -1,4 +1,6 @@
 const Post = require('../models/post');
+const User = require('../models/user');
+const Notification = require('../models/notification');
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapBoxToken });
@@ -41,9 +43,23 @@ module.exports = {
             .send();
         req.body.post.geometry = response.body.features[0].geometry;
         req.body.post.author = {id: req.user._id, username: req.user.username};
-
+        
         let post = new Post(req.body.post);
-		post.properties.description = `<strong><a href="/posts/${post._id}">${post.title}</a></strong><p>${post.location}</p><p>${post.description.substring(0, 20)}...</p>`;
+        post.properties.description = `<strong><a href="/posts/${post._id}">${post.title}</a></strong><p>${post.location}</p><p>${post.description.substring(0, 20)}...</p>`;
+
+        let user = await User.findById(req.user._id).populate('followers').exec();;
+
+        let newNotification = {
+            username: req.user.username,
+            postId: post.id
+        }
+            
+        for(const follower of user.followers) {
+            let notification = await Notification.create(newNotification);
+            follower.notifications.push(notification);
+            follower.save();
+        }
+        
         await post.save();          
         req.session.success = "Post created successfully!";
         res.redirect(`/posts/${post.id}`);

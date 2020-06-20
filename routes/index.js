@@ -22,7 +22,9 @@ const {
   putForgotPw,
   getReset,
   putReset,
-  postFollow
+  postFollow,
+  getNotifications,
+  getHandleNotifications
 } = require('../controllers/index');
 
 
@@ -61,6 +63,12 @@ router.put('/users/:id',
 
 /* POST follow /profile/follow */
 router.post('/users/:id/follow', isLoggedIn, asyncErrorHandler(postFollow));
+
+/* GET notifications /notifications */
+router.get('/notifications', isLoggedIn, asyncErrorHandler(getNotifications));
+
+/* GET handle notifications /notifications/:id */
+router.get('/notifications/:id', isLoggedIn, asyncErrorHandler(getHandleNotifications));
 
 /* GET forgot password /forgot */
 router.get('/forgot-password', getForgotPw);
