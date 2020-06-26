@@ -11,6 +11,7 @@ const passport = require('passport');
 const User = require('./models/user');
 const session = require('express-session');
 const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 const methodOverride = require('method-override');
 // const seedPosts = require('./seeds');
 // seedPosts();
@@ -59,7 +60,10 @@ app.locals.moment = require('moment');
 app.use(session({
   secret: process.env.SESSION_SECRET || 'Super duper secret (change it)',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: db}),
+  //3 hour expiration
+  cookie: { maxAge: 180 * 60 * 1000 },
 }));
 
 app.use(passport.initialize());
@@ -84,6 +88,8 @@ app.use(async function(req, res, next) {
       let user = await User.findById(req.user._id).populate('notifications', null, { isRead: false }).exec();
       res.locals.notifications = user.notifications.reverse();
   }
+  // access cookies for shoppoing cart
+  res.locals.session = req.session;
   // set default page title
   res.locals.title = 'Connoisseur';
   // set success flash message

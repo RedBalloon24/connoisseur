@@ -16,7 +16,8 @@ const {
     postShow,
     postEdit,
     postUpdate,
-    postDestroy
+    postDestroy,
+    getAddToCart
 } = require('../controllers/posts');
 
 /* GET posts index /posts */
@@ -39,6 +40,10 @@ router.put('/:id', isLoggedIn, asyncErrorHandler(isPostAuthor), upload.array('im
 
 /* DELETE posts destroy /posts/:id */
 router.delete('/:id', isLoggedIn, asyncErrorHandler(isPostAuthor), asyncErrorHandler(postDestroy));
+
+/* GET cart /:id/add-to-cart/:id */
+router.get('/:id/add-to-cart/:id', isLoggedIn, asyncErrorHandler(getAddToCart));
+
 
 
 module.exports = router;

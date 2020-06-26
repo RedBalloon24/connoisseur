@@ -1,13 +1,19 @@
 <% layout('layouts/postsIndex') -%>
 
-<h1>Notifications</h1>
+<div class="card" style="margin-left: 550px; margin-right: 550px;">
+	<div class="card-body">
+		<h1 class="text-center my-4 text-danger">Notifications</h1>
+		<div class="card">
+			<ul>
+			<% allNotifications.forEach(function(notification) { %>
+				<li class="my-3 pl-3 ml-5 ">
+					<a href="/posts/<%= notification.postId %>" class="text-capitalize text-dark" style="font-size: 20px;">
+						<%= notification.username %> created a new post/review %>
+					</a>
+				</li>
+			<% }); %>
+			</ul>
+		</div>
+	</div>
+</div>
 
-<ul>
-	<% allNotifications.forEach(function(notification) { %>
-	<li>
-		<a href="/posts/<%= notification.postId %>" class="text-capitalize">
-			<%= notification.username %> created a new post/review %>
-		</a>
-	</li>
-	<% }); %>
-</ul>

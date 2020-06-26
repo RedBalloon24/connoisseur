@@ -5,7 +5,10 @@ const mongoosePaginate = require('mongoose-paginate');
 
 const PostSchema = new Schema({
     title: String,
-    price: String,
+    price: {
+        type: Number, 
+        required: true 
+    },
     description: String,
     type: String,
     images: [ 

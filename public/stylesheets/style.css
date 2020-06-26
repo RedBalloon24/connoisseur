@@ -62,12 +62,6 @@ a {
   border-radius: 50%;
 }
 
-.rounded-image3 {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
-
 .nav-pills .pill-1 .nav-link:not(.active) {
 	background-color: lightgray;
 	color: black;

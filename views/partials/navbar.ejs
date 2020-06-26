@@ -26,32 +26,39 @@
                         <% } %>
                     </ul>
                     <% if(currentUser) { %>
-                            
+                        <% if(session.cart) { %>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info-gradiant text-light font-14 text-capitalize font-weight-bold dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding-left: 10px !important; padding-right: 10px !important; padding-top: 10px !important; padding-bottom: 10px !important;">Notifications <span class="badge"><%= notifications.length %></span></button>
-                                <ul class="dropdown-menu">
-                                  <li class="dropdown-item">
-                                      <a class="text-dark font-weight-bold" href="/notifications">View past notifications</a>
-                                  </li>
-                                  <% notifications.forEach(function(notification) { %>  
-                                    <hr>                        
-                                      <li class="">
-                                          <a class="text-danger font-weight-bold text-capitalize" href="/notifications/<%= notification.postId %>" style="font-size: 13px;">
-                                             - <%= notification.username %> created a new post/review
-                                          </a>
-                                      </li>
-                                  <% }); %>
-                                </ul>
+                                <a class="nav-link text-light" href="/shopping-cart"><i class="fas fa-shopping-cart mr-2"></i>Shopping Cart<span class="badge badge-light ml-2"><%= session.cart.totalQty %></span></a>
                             </div>
+                            <% } else { %>
+                            <div class="btn-group">
+                                <a class="nav-link text-light" href="/shopping-cart"><i class="fas fa-shopping-cart mr-2"></i>Shopping Cart<span class="badge badge-light ml-2">0</span></a>
+                            </div>
+                            <% } %>
                         <div class="btn-group">
-                        
+                            <button type="button" class="btn btn-info-gradiant text-light font-14 text-capitalize font-weight-bold dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding-left: 10px !important; padding-right: 10px !important; padding-top: 10px !important; padding-bottom: 10px !important;">Notifications <span class="badge"><%= notifications.length %></span></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item">
+                                    <a class="text-dark font-weight-bold" href="/notifications">View past notifications</a>
+                                </li>
+                                <% notifications.forEach(function(notification) { %>  
+                                <hr>                        
+                                    <li class="">
+                                        <a class="text-danger font-weight-bold text-capitalize" href="/users/<%= notification.postId %>" style="font-size: 13px;">
+                                            -New post/review by <%= notification.username %> 
+                                        </a>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
                             <button type="button" class="btn  btn-danger-gradiant text-dark font-14 text-capitalize font-weight-bold dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent" style="background-color: black; padding-left: 20px !important; padding-right: 20px !important; padding-top: 10px !important; padding-bottom: 10px !important;">
                                 Welcome, <%= currentUser.username %>!
                                 <span class="sr-only ml-3"></span>
                             </button>
                             <div class="dropdown-menu ml-3" aria-labelledby="dropdownMenuReference"  style="background-color: black;">
-                              <a class="dropdown-item text-danger font-weight-bold" href="/users/<%= currentUser._id %>">Profile</a>
-                              <a class="dropdown-item text-danger font-weight-bold" href="/logout">Logout</a>
+                                <a class="dropdown-item text-danger font-weight-bold" href="/users/<%= currentUser._id %>">Profile</a>
+                                <a class="dropdown-item text-danger font-weight-bold" href="/logout">Logout</a>
                             </div>
                         </div>
                     <% } %>

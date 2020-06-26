@@ -9,7 +9,7 @@ async function seedPosts() {
     console.log('Removed post data')
     await Review.deleteMany({});
     console.log('Removed review data')
-    // create 40 new posts
+    // create 600 new posts
     for(const i of new Array(600)) {
         const random1000 = Math.floor(Math.random() * 1000);
         const random5 = Math.floor(Math.random() * 6);
@@ -25,7 +25,7 @@ async function seedPosts() {
 				coordinates: [cities[random1000].lng, cities[random1000].lat],
             },  
             avgRating: random5,          
-            author: { 'id': '5eedf9aa1f9c291a775eda89', 'username': 'Maria'},
+            author: { 'id': '5ef668cede7c445e9a163bd9', 'username': 'maria'},
             type: 'Red',
             images: [
                 {

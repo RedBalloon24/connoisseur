@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 
-var notificationSchema = new Schema({
+const notificationSchema = new Schema({
 	username: String,
     postId: String,
 	isRead: { 

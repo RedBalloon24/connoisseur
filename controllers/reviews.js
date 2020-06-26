@@ -24,7 +24,7 @@ module.exports = {
 
         let newNotification = {
             username: req.user.username,
-            postId: id,
+            postId: id
         }
             
         for(const follower of user.followers) {

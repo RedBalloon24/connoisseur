@@ -1,6 +1,7 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 const Notification = require('../models/notification');
+const Cart = require('../models/cart');
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapBoxToken });
@@ -139,5 +140,15 @@ module.exports = {
         await post.remove();
         req.session.success = 'Post deleted successfully!';
         res.redirect('/posts');
-    }
+    },
+    //GET /add-to-cart/:id
+    async getAddToCart(req,res, next) {
+        let cart = new Cart(req.session.cart ? req.session.cart : {});
+        let post = await Post.findById(req.params.id);
+
+        cart.add(post, post.id);
+        req.session.cart = cart;
+        console.log(req.session.cart);
+        res.redirect(`/posts/${post.id}`);
+    },
 }

@@ -90,7 +90,7 @@
 							<% user.followers.forEach(function(follower) { %>
 								<tr>
 									<td class="text-capitalize">
-										<a href="/users/<%= follower._id %>"><img src="<%= user.image.secure_url %>" class="rounded-image3 shadow mr-2"><%= follower.username %></a></td>
+									<a href="/users/<%= follower._id %>"><i class="fas fa-user mr-2"></i><%= follower.username %></a></td>
 								</tr>
 							<% }); %>
 							<% if (user.followers.length === 0) { %>

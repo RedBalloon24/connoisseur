@@ -24,11 +24,12 @@ const {
   putReset,
   postFollow,
   getNotifications,
-  getHandleNotifications
+  getHandleNotifications,
+  getShoppingCart
 } = require('../controllers/index');
 
 
-/* GET home/landing page */
+/* GET home /landing page */
 router.get('/', asyncErrorHandler(landingPage));
 
 /* GET /register */
@@ -69,6 +70,9 @@ router.get('/notifications', isLoggedIn, asyncErrorHandler(getNotifications));
 
 /* GET handle notifications /notifications/:id */
 router.get('/notifications/:id', isLoggedIn, asyncErrorHandler(getHandleNotifications));
+
+/* GET cart /shopping-cart */
+router.get('/shopping-cart', isLoggedIn, asyncErrorHandler(getShoppingCart));
 
 /* GET forgot password /forgot */
 router.get('/forgot-password', getForgotPw);

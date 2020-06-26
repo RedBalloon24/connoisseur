@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Post = require('../models/post');
 const Review = require('../models/review');
 const Notification = require('../models/notification');
+const Cart = require('../models/cart');
 const passport = require('passport');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const util = require('util');
@@ -74,6 +75,7 @@ module.exports = {
     //GET /logout
     getLogout(req, res, next) {
         req.logout();
+        req.session.destroy();  
         res.redirect('/');
     },
     //GET /profile
@@ -140,7 +142,16 @@ module.exports = {
 
         notification.save();
         res.redirect(`/posts/${notification.postId}`);
-    },   
+    },
+    //GET /shopping-cart
+    async getShoppingCart(req, res, next) {
+        if(!req.session.cart) {
+            return res.render('shop/cart', { posts: null });
+        }
+
+        let cart = await new Cart(req.session.cart);
+        return res.render('shop/cart', { posts: cart.generateArray(), totalPrice: cart.totalPrice });
+     },
     //GET /forgot-password
     getForgotPw(req, res, next) {
         res.render('users/forgot')
