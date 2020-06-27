@@ -151,7 +151,36 @@ module.exports = {
 
         let cart = await new Cart(req.session.cart);
         return res.render('shop/cart', { posts: cart.generateArray(), totalPrice: cart.totalPrice });
-     },
+    },
+    //GET /reduce/:id"
+    async reduceShoppingCartValue(req,res, next) {
+        let postId = req.params.id;
+        let cart = await new Cart(req.session.cart ? req.session.cart : {});
+
+    
+        cart.reduceByOne(postId);
+        req.session.cart = cart;
+        res.redirect('/shopping-cart');
+    },
+    //GET /increase/:id"
+    async increaseShoppingCartValue(req,res, next) {
+        let postId = req.params.id;
+        let cart = await new Cart(req.session.cart ? req.session.cart : {});
+
+        cart.increaseByOne(postId);
+        req.session.cart = cart;
+        res.redirect('/shopping-cart');
+    },
+    //GET /remove/:id"
+    async removeShoppingCart(req,res, next) {
+        let postId = req.params.id;
+        let cart = await new Cart(req.session.cart ? req.session.cart : {});
+
+
+        cart.removeItem(postId);
+        req.session.cart = cart;
+        res.redirect('/shopping-cart');
+    },
     //GET /forgot-password
     getForgotPw(req, res, next) {
         res.render('users/forgot')

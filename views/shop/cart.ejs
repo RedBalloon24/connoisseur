@@ -13,9 +13,9 @@
                             </div>
                             <div class="mx-2">
                               
-                                <a href="#" class="btn btn-info" type="button"><i class="fas fa-minus"></i> </a>
-                                <a href="#" class="btn btn-info" type="button"><i class="fas fa-plus"></i> </a>
-                                <a href="#" class="btn btn-info"><i class="fas fa-trash-alt"></i></a>
+                                <a href="/reduce/<%= post.item._id%>" class="btn btn-info" type="button"><i class="fas fa-minus"></i> </a>
+                                <a href="/increase/<%= post.item._id%>" class="btn btn-info" type="button"><i class="fas fa-plus"></i> </a>
+                                <a href="/remove/<%= post.item._id%>" class="btn btn-info"><i class="fas fa-trash-alt"></i></a>
                             </div>
                             <div>
                                 <span class="badge badge-secondary" style="margin-left: 150px;"><%= post.qty %></span>
@@ -27,7 +27,7 @@
                 <% }) %>
                 
             </ul>
-            <%  if(totalPrice > 0) { %>
+            <%  if(totalPrice) { %>
                 <div class="row">
                     <div class="col-sm-6 col-md-6 offset-md-3 coffset-sm-3">
                         <strong>Total Price: <%= totalPrice %> </strong>
@@ -45,7 +45,16 @@
                         <h2>No items in cart</h2>
                     </div>
                 </div>
-                <% } %>
+            <% } %>
+        </div>
+    </div>
+<% } %>
+
+
+<% if(!posts) { %>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 offset-md-3 coffset-sm-3">
+            <h2>No items in cart</h2>
         </div>
     </div>
 <% } %>

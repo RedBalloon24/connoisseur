@@ -25,7 +25,10 @@ const {
   postFollow,
   getNotifications,
   getHandleNotifications,
-  getShoppingCart
+  getShoppingCart,
+  reduceShoppingCartValue,
+  removeShoppingCart,
+  increaseShoppingCartValue
 } = require('../controllers/index');
 
 
@@ -73,6 +76,15 @@ router.get('/notifications/:id', isLoggedIn, asyncErrorHandler(getHandleNotifica
 
 /* GET cart /shopping-cart */
 router.get('/shopping-cart', isLoggedIn, asyncErrorHandler(getShoppingCart));
+
+/* GET cart /reduce/:id */
+router.get('/reduce/:id', isLoggedIn, asyncErrorHandler(reduceShoppingCartValue));
+
+/* GET cart /increase/:id */
+router.get('/increase/:id', isLoggedIn, asyncErrorHandler(increaseShoppingCartValue));
+
+/* GET cart /remove/:id */
+router.get('/remove/:id', isLoggedIn, asyncErrorHandler(removeShoppingCart));
 
 /* GET forgot password /forgot */
 router.get('/forgot-password', getForgotPw);
