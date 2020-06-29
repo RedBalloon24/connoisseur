@@ -1,0 +1,54 @@
+<% layout('layouts/postsIndex') -%>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<form action="/checkout" method="post" id="payment-form">
+    <div class="form-row">
+        <div class="col-8">
+            <label for="name">
+            Name
+            </label>
+            <input id="name" name="name" class="text-capitalize" placeholder="<%= currentUser.username %>" required>
+        </div>
+        <div class="col-8">
+            <label for="address">
+            Address
+            </label>
+            <input id="address" name="address" class="text-capitalize" type="text" required>
+        </div>
+        <div class="col-8">
+            <label for="city">
+            City
+            </label>
+            <input id="city" name="city" class="text-capitalize" type="text" required>
+        </div>
+        <div class="col-8">
+            <label for="country">
+            Country
+            </label>
+            <input id="country" name="country" class="text-capitalize" type="text" required>
+        </div>
+        <div class="col-8">
+            <label for="postCode">
+            Post Code
+            </label>
+            <input id="postCode" name="postCode" type="text" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <label for="card-element">
+            Credit or debit card
+        </label>
+        <div id="card-element">
+            <!-- A Stripe Element will be inserted here. -->
+        </div>
+
+        <!-- Used to display form errors. -->
+        <div id="card-errors" role="alert"></div>
+    </div>
+
+    <button>Submit Payment</button>
+</form>
+
+
+<script src="javascripts/checkout.js"></script>

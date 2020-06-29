@@ -44,8 +44,8 @@
                                 <% notifications.forEach(function(notification) { %>  
                                 <hr>                        
                                     <li class="">
-                                        <a class="text-danger font-weight-bold text-capitalize" href="/users/<%= notification.postId %>" style="font-size: 13px;">
-                                            -New post/review by <%= notification.username %> 
+                                        <a class="text-danger font-weight-bold text-capitalize" href="/notifications/<%= notification.id %>" style="font-size: 13px;">
+                                            - New post/review by <%= notification.username %> 
                                         </a>
                                     </li>
                                 <% }); %>

@@ -27,8 +27,10 @@ const {
   getHandleNotifications,
   getShoppingCart,
   reduceShoppingCartValue,
+  increaseShoppingCartValue,
   removeShoppingCart,
-  increaseShoppingCartValue
+  getCheckout,
+  postCheckout
 } = require('../controllers/index');
 
 
@@ -75,16 +77,22 @@ router.get('/notifications', isLoggedIn, asyncErrorHandler(getNotifications));
 router.get('/notifications/:id', isLoggedIn, asyncErrorHandler(getHandleNotifications));
 
 /* GET cart /shopping-cart */
-router.get('/shopping-cart', isLoggedIn, asyncErrorHandler(getShoppingCart));
+router.get('/shopping-cart', asyncErrorHandler(getShoppingCart));
 
 /* GET cart /reduce/:id */
-router.get('/reduce/:id', isLoggedIn, asyncErrorHandler(reduceShoppingCartValue));
+router.get('/reduce/:id', asyncErrorHandler(reduceShoppingCartValue));
 
 /* GET cart /increase/:id */
-router.get('/increase/:id', isLoggedIn, asyncErrorHandler(increaseShoppingCartValue));
+router.get('/increase/:id', asyncErrorHandler(increaseShoppingCartValue));
+
+/* GET checkout /checkout */
+router.get('/remove/:id', asyncErrorHandler(removeShoppingCart));
 
 /* GET cart /remove/:id */
-router.get('/remove/:id', isLoggedIn, asyncErrorHandler(removeShoppingCart));
+router.get('/checkout', asyncErrorHandler(getCheckout));
+
+/* POST checkout /checkout */
+router.post('/checkout', asyncErrorHandler(postCheckout));
 
 /* GET forgot password /forgot */
 router.get('/forgot-password', getForgotPw);
@@ -97,5 +105,6 @@ router.get('/reset/:token', asyncErrorHandler(getReset));
 
 /* PUT reset password /reset/:token */
 router.put('/reset/:token', asyncErrorHandler(putReset));
+
 
 module.exports = router;

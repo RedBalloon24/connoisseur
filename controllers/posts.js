@@ -43,24 +43,26 @@ module.exports = {
             })
             .send();
         req.body.post.geometry = response.body.features[0].geometry;
-        req.body.post.author = {id: req.user._id, username: req.user.username};
+        req.body.post.author = { id: req.user._id, username: req.user.username };
         
         let post = new Post(req.body.post);
         post.properties.description = `<strong><a href="/posts/${post._id}">${post.title}</a></strong><p>${post.location}</p><p>${post.description.substring(0, 20)}...</p>`;
 
-        let user = await User.findById(req.user._id).populate('followers').exec();;
+        let user = await User.findById(req.user._id);
 
         let newNotification = {
             username: req.user.username,
             postId: post.id
         }
-            
+
         for(const follower of user.followers) {
             let notification = await Notification.create(newNotification);
-            follower.notifications.push(notification);
-            follower.save();
+            let followerUser = await User.findById(follower._id);
+            followerUser.notifications.push(notification);
+            followerUser.save();
         }
         
+
         await post.save();          
         req.session.success = "Post created successfully!";
         res.redirect(`/posts/${post.id}`);
@@ -75,6 +77,7 @@ module.exports = {
                 model: 'User'
             }
         });
+        
         const floorRating = post.calculateAvgRating();
         // const floorRating = post.avgRating;
         res.render('posts/show', { post, mapBoxToken, floorRating, title: 'Posts Show' });

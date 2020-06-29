@@ -121,8 +121,9 @@ module.exports = {
             user.followers.push(req.user);
         }
 
-        await user.save()
-        res.redirect(`/users/${user._id}`, { user })
+        user.save()
+        req.session.success = `Successfylly followed ${user.username}!`
+        res.redirect( { user }, `/users/${user._id}`)
     },
     //GET /notifications
     async getNotifications(req, res, next) {
@@ -132,6 +133,7 @@ module.exports = {
         }).exec();
 
         let allNotifications = user.notifications;
+
         res.render('notifications/index', { allNotifications });
 
     },
@@ -180,6 +182,35 @@ module.exports = {
         cart.removeItem(postId);
         req.session.cart = cart;
         res.redirect('/shopping-cart');
+    },
+    //GET /checkout
+    async getCheckout(req,res, next) {
+        if(!req.session.cart) {
+            return res.redirect('/shopping-cart');
+        }
+        let cart = await new Cart(req.session.cart);
+        return res.render('shop/checkout', { total: cart.totalPrice });
+    },
+    //POST /checkout
+    async postCheckout(req,res, next) {
+        if(!req.session.cart) {
+            return res.redirect('/shopping-cart');
+        }
+
+        let cart = await new Cart(req.session.cart);
+        
+        const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {apiVersion: ''});
+
+        let charge = await stripe.charges.create({
+            amount: cart.totalPrice * 100,
+            currency: "eur",
+            source: req.body.stripeToken,
+            description: 'Test Charge'
+        });
+    
+        req.session.success = 'Purchase Successful';
+        req.session.cart = null;
+        res.redirect('/');
     },
     //GET /forgot-password
     getForgotPw(req, res, next) {

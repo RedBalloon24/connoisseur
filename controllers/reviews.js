@@ -20,7 +20,7 @@ module.exports = {
         let review = await Review.create(req.body.review);
         post.reviews.push(review);
 
-        let user = await User.findById(req.user._id).populate('followers').exec();;
+        let user = await User.findById(req.user._id);
 
         let newNotification = {
             username: req.user.username,
@@ -29,8 +29,9 @@ module.exports = {
             
         for(const follower of user.followers) {
             let notification = await Notification.create(newNotification);
-            follower.notifications.push(notification);
-            follower.save();
+            let followerUser = await User.findById(follower._id);
+            followerUser.notifications.push(notification);
+            followerUser.save();
         }
 
         post.save();

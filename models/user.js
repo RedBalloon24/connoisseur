@@ -34,11 +34,11 @@ const UserSchema = new Schema({
     ],
     followers: [
         {
-            id: {
+            user: {
                 type: Schema.Types.ObjectId,
                 ref: 'User'
-            },
-            username: String
+            }
+        
         }
     ], 
  

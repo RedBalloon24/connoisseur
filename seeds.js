@@ -25,7 +25,7 @@ async function seedPosts() {
 				coordinates: [cities[random1000].lng, cities[random1000].lat],
             },  
             avgRating: random5,          
-            author: { 'id': '5ef668cede7c445e9a163bd9', 'username': 'maria'},
+            author: { 'id': '5ef8a7c7d869476b8be96344', 'username': 'maria'},
             type: 'Red',
             images: [
                 {
