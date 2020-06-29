@@ -50,6 +50,7 @@ module.exports = {
 
         let user = await User.findById(req.user._id);
 
+
         let newNotification = {
             username: req.user.username,
             postId: post.id
@@ -77,7 +78,7 @@ module.exports = {
                 model: 'User'
             }
         });
-        
+
         const floorRating = post.calculateAvgRating();
         // const floorRating = post.avgRating;
         res.render('posts/show', { post, mapBoxToken, floorRating, title: 'Posts Show' });

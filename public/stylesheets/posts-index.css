@@ -103,3 +103,161 @@
     font: inherit;
     outline: 0;
 }
+
+/**
+* The CSS shown here will not be introduced in the Quickstart guide, but shows
+* how you can use CSS to style your Element's container.
+*/
+.StripeElement {
+    box-sizing: border-box;
+  
+    height: 40px;
+  
+    padding: 10px 12px;
+  
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+  
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+  
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+  
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+  
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+  
+  #card-element {
+    width: 320px;
+  }
+  
+  .example.example1 {
+    background-color: black;
+    height: 700px;
+    margin-left: 15%;
+    margin-right: 15%;
+    border: 1px solid black;
+  }
+  
+  .example.example1 * {
+    font-family: Roboto, Open Sans, Segoe UI, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .example.example1 fieldset {
+    margin: 0 15px 20px;
+    padding: 0;
+    border-style: none;
+    background-color: white;
+  }
+  
+  .example.example1 .row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-top: 25px;
+  }
+  
+  
+  .example.example1 label {
+    width: 25%;
+    min-width: 70px;
+    padding: 11px 0;
+    color: green;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .example.example1 input, .example.example1 button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border-style: none;
+  }
+  
+  .example.example1 input:-webkit-autofill {
+    -webkit-text-fill-color: black;
+    transition: background-color 100000000s;
+    -webkit-animation: 1ms void-animation-out;
+  }
+  
+  .example.example1 .StripeElement--webkit-autofill {
+    background: transparent !important;
+  }
+  
+  .example.example1 .StripeElement {
+    width: 100%;
+    padding: 11px 15px 11px 0;
+  }
+  
+  .example.example1 input {
+    width: 70%;
+    padding: 11px 15px 11px 0;
+    color: black;
+    background-color: transparent;
+    -webkit-animation: 1ms void-animation-out;
+  }
+  
+  .example.example1 input::-webkit-input-placeholder {
+    color: gainsboro
+  }
+  
+  .example.example1 input::-moz-placeholder {
+    color: gainsboro;
+  }
+  
+  .example.example1 input:-ms-input-placeholder {
+    color: gainsboro;
+  }
+  
+  .example.example1 button {
+    display: block;
+    width: calc(100% - 30px);
+    height: 40px;
+    margin: 40px 15px 0;
+    background-color: white;
+    border-radius: 4px;
+    border: 2px solid darkred;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .example.example1 .error svg .base {
+    fill: #fff;
+  }
+  
+  .example.example1 .error svg .glyph {
+    fill: #6772e5;
+  }
+  
+  .example.example1 .error .message {
+    color: #fff;
+  }
+  
+  .contact-info {
+    height: 400px;
+    border: 1px solid darkred;
+  
+  }
+  
+  .bottom-border {
+    border-bottom: 1px solid #cfcfc5 !important;
+  }
+  
+  .card-info {
+    height: 80px;
+  }

@@ -1,5 +1,7 @@
 const Review = require('../models/review');
 const Post = require('../models/post');
+const User = require('../models/user');
+const Notification = require('../models/notification');
 
 module.exports = {
     // REVIEWS /create
@@ -8,10 +10,12 @@ module.exports = {
         let reviewed = post.reviews.filter(review => {
             return review.author.equals(req.user._id);
         }).length;
+
         if(reviewed) {
             req.session.error = 'Only one review per post allowed';
             return res.redirect(`/posts/${post.id}`);
         }
+
         const { id, title} = post;
 
         req.body.review.author = req.user._id;
@@ -26,7 +30,7 @@ module.exports = {
             username: req.user.username,
             postId: id
         }
-            
+        
         for(const follower of user.followers) {
             let notification = await Notification.create(newNotification);
             let followerUser = await User.findById(follower._id);

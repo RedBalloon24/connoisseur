@@ -8,7 +8,7 @@ var elements = stripe.elements();
 // (Note that this demo uses a wider set of styles than the guide below.)
 var style = {
   base: {
-    color: '#32325d',
+    color: 'black',
     fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
     fontSmoothing: 'antialiased',
     fontSize: '16px',

@@ -32,10 +32,11 @@ const middleware = {
     },
     isPostAuthor: async (req, res, next) => {
         const post =  await Post.findById(req.params.id);
-        if(post.author.equals(req.user._id)) {
+        if(post.author.id.equals(req.user._id)) {
             res.locals.post = post;
             return next();
         }
+        eval(require('locus'));
         req.session.error = 'Access denied!'
         res.redirect('back');
     },

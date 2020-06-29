@@ -35,7 +35,7 @@
    
     <!-- <div id='map'></div> -->
     <div class="row d-flex justify-content-center">
-        <% if(currentUser && post.author.equals(currentUser._id)) { %>
+        <% if(currentUser && post.author.id.equals(currentUser._id)) { %>
             <div style="margin-right: 20px; margin-left: 45px;">
                 <a href="/posts/<%= post.id %>/edit" class="btn btn-xs btn-warning shadow text-dark font-weight-bold">Edit</a>
             </div>

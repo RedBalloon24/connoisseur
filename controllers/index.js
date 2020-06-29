@@ -3,6 +3,7 @@ const Post = require('../models/post');
 const Review = require('../models/review');
 const Notification = require('../models/notification');
 const Cart = require('../models/cart');
+const Order = require('../models/order');
 const passport = require('passport');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const util = require('util');
@@ -83,9 +84,14 @@ module.exports = {
         const user = await User.findById(req.params.id);
         const posts = await Post.find().where('author.id', user._id).sort({ _id: -1 }).exec();
         const reviews = await Review.find().where('author', user._id).sort({ _id: -1 }).exec();
+        const orders = await Order.find({userId: req.user});
+     
+        orders.forEach((order) => {
+            let cart = new Cart(order.cart);
+            order.items = cart.generateArray();        
+        })
 
-        res.render('profile', { user, posts, reviews});
-
+        res.render('profile', { user, posts, reviews, orders });
     },
     //PUT /profile
     async updateProfile(req, res, next) {
@@ -200,14 +206,27 @@ module.exports = {
         let cart = await new Cart(req.session.cart);
         
         const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {apiVersion: ''});
-
+        
         let charge = await stripe.charges.create({
             amount: cart.totalPrice * 100,
             currency: "eur",
             source: req.body.stripeToken,
             description: 'Test Charge'
         });
-    
+      
+        let order = new Order({
+            userId: req.user._id,
+            cart: cart,
+            address: req.body.address,
+            city: req.body.city,
+            country: req.body.country,
+            postCode: req.body.postCode,
+            userName: req.body.name,
+            paymentId: charge.id
+        });
+
+        order.save();
+        console.log(order);
         req.session.success = 'Purchase Successful';
         req.session.cart = null;
         res.redirect('/');

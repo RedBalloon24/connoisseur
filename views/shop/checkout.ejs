@@ -2,53 +2,59 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 
-<form action="/checkout" method="post" id="payment-form">
-    <div class="form-row">
-        <div class="col-8">
-            <label for="name">
+<div class="example example1 shadow">
+  <div class="mx-5 py-2">
+    <h1 class="text-danger text-center mt-3 font-weight-bold" style="font-size: 35px;">Checkout</h1>
+    <form action="/checkout" method="post" id="payment-form">
+      <fieldset class="contact-info">
+        <div class="row">
+          <span>
             Name
-            </label>
-            <input id="name" name="name" class="text-capitalize" placeholder="<%= currentUser.username %>" required>
+          </span>  
+          <input id="name" name="name" class="text-capitalize bottom-border ml-5" placeholder="Mary" required>
         </div>
-        <div class="col-8">
-            <label for="address">
+        <div class="row">
+          <span class="mr-2">
             Address
-            </label>
-            <input id="address" name="address" class="text-capitalize" type="text" required>
+          </span>
+          <input id="address" name="address" class="text-capitalize bottom-border ml-4" type="text" placeholder="185 Berry Street" required>
         </div>
-        <div class="col-8">
-            <label for="city">
+        <div class="row">
+          <span class="mr-3">
             City
-            </label>
-            <input id="city" name="city" class="text-capitalize" type="text" required>
-        </div>
-        <div class="col-8">
-            <label for="country">
+          </span>
+          <input id="city" name="city" class="text-capitalize bottom-border ml-5" type="text" placeholder="San Francisco" required>
+        </div> 
+        <div class="row">
+          <span class="mr-2">
             Country
-            </label>
-            <input id="country" name="country" class="text-capitalize" type="text" required>
+          </span>
+          <input id="country" name="country" class="text-capitalize bottom-border ml-4" type="text" placeholder="USA" required>
         </div>
-        <div class="col-8">
-            <label for="postCode">
+        <div class="row">
+          <span>
             Post Code
-            </label>
-            <input id="postCode" name="postCode" type="text" required>
+          </span>
+          <input id="postCode" name="postCode" class="bottom-border ml-4" type="text" placeholder="99999" required>
         </div>
-    </div>
-    <div class="form-row">
-        <label for="card-element">
-            Credit or debit card
-        </label>
-        <div id="card-element">
-            <!-- A Stripe Element will be inserted here. -->
-        </div>
+      </fieldset>
+      <fieldset class="card-info">
+          <div class="row">
+            <span for="card-element">
+              Card Details
+            </span>
+            
+            <div id="card-element" class="ml-3">
+              <!-- A Stripe Element will be inserted here. -->
+            </div>
+          </div>
 
-        <!-- Used to display form errors. -->
-        <div id="card-errors" role="alert"></div>
-    </div>
-
-    <button>Submit Payment</button>
-</form>
-
+      </fieldset>
+      <button class="btn text-danger shadow">Submit Payment</button>
+      <!-- Used to display form errors. -->
+      <div id="card-errors" role="alert"></div>
+    </form>
+  </div>
+</div>
 
 <script src="javascripts/checkout.js"></script>
