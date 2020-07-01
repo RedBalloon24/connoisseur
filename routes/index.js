@@ -30,7 +30,8 @@ const {
   increaseShoppingCartValue,
   removeShoppingCart,
   getCheckout,
-  postCheckout
+  postCheckout,
+  getCheckoutSuccess
 } = require('../controllers/index');
 
 
@@ -85,14 +86,17 @@ router.get('/reduce/:id', asyncErrorHandler(reduceShoppingCartValue));
 /* GET cart /increase/:id */
 router.get('/increase/:id', asyncErrorHandler(increaseShoppingCartValue));
 
-/* GET checkout /checkout */
+/* GET cart /remove/:id */
 router.get('/remove/:id', asyncErrorHandler(removeShoppingCart));
 
-/* GET cart /remove/:id */
+/* GET checkout /checkout */
 router.get('/checkout', asyncErrorHandler(getCheckout));
 
 /* POST checkout /checkout */
 router.post('/checkout', asyncErrorHandler(postCheckout));
+
+/* GET checkout /checkout_successful */
+router.get('/checkout_successful', getCheckoutSuccess);
 
 /* GET forgot password /forgot */
 router.get('/forgot-password', getForgotPw);

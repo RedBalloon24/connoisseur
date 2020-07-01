@@ -62,8 +62,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   store: new MongoStore({ mongooseConnection: db}),
-  //3 hour expiration
-  cookie: { maxAge: 180 * 60 * 1000 },
+  //15 minute expiration
+  cookie: { maxAge: 15 * 60 * 1000 },
 }));
 
 app.use(passport.initialize());

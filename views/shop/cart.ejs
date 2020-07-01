@@ -1,48 +1,60 @@
 <% layout('layouts/postsIndex') -%>
-
+<div class="row">
+    <div class="col-md-6 offset-md-3 text-center mb-4 mt-3">
+        <h1 class="font-weight-bold">Cart</h1>
+    </div>
+</div>
 <% if(posts) { %>
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-6 offset-md-3">
             <ul class="list-group">
                 <% posts.forEach((post) => { %>
-                    <li class="list-group-item">
+                    <li class="list-group-item shadow" style="background-color: whitesmoke ;">
                         <div class="row">
-                            <h3 class="mx-2"><%= post.item.title %></h3>
-                            <div>
-                                <span class="badge badge-success mx-2">$<%= post.price %></span>
+                            <div class="col-md-2 col-sm-4">
+                                <a href="#"><img src="<%= post.item.images[0].url %>" class="rounded-image"></a>
                             </div>
-                            <div class="mx-2">
-                              
-                                <a href="/reduce/<%= post.item._id%>" class="btn btn-info" type="button"><i class="fas fa-minus"></i> </a>
-                                <a href="/increase/<%= post.item._id%>" class="btn btn-info" type="button"><i class="fas fa-plus"></i> </a>
-                                <a href="/remove/<%= post.item._id%>" class="btn btn-info"><i class="fas fa-trash-alt"></i></a>
-                            </div>
-                            <div>
-                                <span class="badge badge-secondary" style="margin-left: 150px;"><%= post.qty %></span>
-
+                            <div class="col-md-10 col-sm-4">
+                                <div class="row d-flex justify-content-between mx-3 mt-3">
+                                    <div class="">
+                                        <h2 class="mx-2"><%= post.item.title %></h2>
+                                    </div>
+                                    <div class="">
+                                        <span class="badge badge-info ml-5 float-right font-14"><b>Price:</b> $<%= post.price %></span>
+                                    </div>
+                                </div>
+                                <div class="row d-flex justify-content-between mx-3 mb-5">
+                                    <div class="">
+                                        <a href="/reduce/<%= post.item._id%>" class="btn btn-light btn-sm px-3 py-2" type="button"><i class="fas fa-minus"></i> </a>
+                                        <a href="/increase/<%= post.item._id%>" class="btn btn-warning btn-sm px-3 py-2 type="button"><i class="fas fa-plus"></i> </a>
+                                        <a href="/remove/<%= post.item._id%>" class="btn btn-danger btn-sm px-3 py-2"><i class="fas fa-trash-alt"></i></a>
+                                    </div>
+                                    <div> 
+                                        <span class="badge badge-primary font-14 float-right">Quantity: <%= post.qty %></span>
+                                    </div>
+                                </div>  
                             </div>
                         </div>
                     </li>
-                    
                 <% }) %>
                 
             </ul>
             <%  if(totalPrice) { %>
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 offset-md-3 coffset-sm-3">
-                        <strong>Total Price: <%= totalPrice %> </strong>
+                <div class="row d-flex justify-content-end">
+                    <div class="mt-5 mr-5 text-dark text-right">
+                        <strong><b>Total Price:</b> <%= totalPrice %>€</strong>
                     </div>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 offset-md-3 coffset-sm-3">
-                        <a href="/checkout" type="button" class="btn btn-success">Checkout</a>
+                <div class="row mb-5">
+                    <div class="col-sm-6 col-md-6 offset-md-3 coffset-sm-3 text-center">
+                        <a href="/checkout" type="button" class="btn btn-outline-danger">Checkout</a>
                     </div>
                 </div>
             <% } else { %>
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 offset-md-3 coffset-sm-3">
-                        <h2>No items in cart</h2>
+                <div class="row"  style="margin-bottom: 400px;">
+                    <div class="col-sm-6 col-md-6 offset-md-3 coffset-sm-3 text-center">
+                        <h2>Empty cart</h2>
                     </div>
                 </div>
             <% } %>
@@ -52,9 +64,9 @@
 
 
 <% if(!posts) { %>
-    <div class="row">
-        <div class="col-sm-6 col-md-6 offset-md-3 coffset-sm-3">
-            <h2>No items in cart</h2>
+    <div class="row" style="margin-bottom: 400px;">
+        <div class="col-sm-6 col-md-6 offset-md-3 coffset-sm-3 text-center">
+            <h2>Empty cart</h2>
         </div>
     </div>
 <% } %>

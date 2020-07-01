@@ -85,7 +85,7 @@ module.exports = {
         const posts = await Post.find().where('author.id', user._id).sort({ _id: -1 }).exec();
         const reviews = await Review.find().where('author', user._id).sort({ _id: -1 }).exec();
         const orders = await Order.find({userId: req.user});
-     
+    
         orders.forEach((order) => {
             let cart = new Cart(order.cart);
             order.items = cart.generateArray();        
@@ -158,6 +158,7 @@ module.exports = {
         }
 
         let cart = await new Cart(req.session.cart);
+     
         return res.render('shop/cart', { posts: cart.generateArray(), totalPrice: cart.totalPrice });
     },
     //GET /reduce/:id"
@@ -227,9 +228,12 @@ module.exports = {
 
         order.save();
         console.log(order);
-        req.session.success = 'Purchase Successful';
         req.session.cart = null;
-        res.redirect('/');
+        res.redirect('/checkout_successful');
+    },
+    //GET /checkout_successful
+    getCheckoutSuccess(req, res, next) {
+        res.render('shop/checkoutSuccess')
     },
     //GET /forgot-password
     getForgotPw(req, res, next) {

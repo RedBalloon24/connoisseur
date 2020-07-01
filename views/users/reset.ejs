@@ -1,17 +1,28 @@
-<% layout('layouts/boilerplate') -%>
+<% layout('layouts/postsIndex') -%>
 
-<h1>Reset Password</h1>
-
-<form action="/reset/<%= token %>?_method=PUT" method="POST">
-    <div>
-        <label for="password">New Password</label>
-        <input type="password" name="password" id="password" placeholder="New Password" autofocus>
+<div class="modal-dialog cascading-modal login">
+    <a class="nav-link active text-danger font-weight-bold bg-dark text-center"><i class="fas fa-key mr-1"></i>Reset Password</a>
+    <div class="modal-content border border-light">
+      <div>
+        <div class="tab-pane active">
+          <div class="modal-body mb-1">
+            <form action="/reset/<%= token %>?_method=PUT" method="POST">
+                <div class="md-form form-sm mb-5 ">
+                    <i class="fas fa-lock prefix"></i>
+                    <label for="password">New Password</label>
+                    <input type="password" id="password" name="password" class="form-control form-control-sm" autofocus required>              
+                </div>
+                <div class="md-form form-sm mb-5 ">
+                    <i class="fas fa-lock prefix"></i>
+                    <label for="confirm">Confirm Password</label>
+                    <input type="password" id="confirm" name="confirm" class="form-control form-control-sm" required>              
+                </div>
+                <div class="text-center mt-1">
+                    <input type="submit" class="btn btn-outline-dark"  value="Update">
+                </div>
+            </form>
+            </div>
+          </div>    
+        </div>
     </div>
-    <div>
-        <label for="confirm">Confirm Password</label>
-        <input type="password" name="confirm" id="confirm" placeholder="Confirm Password">
-    </div>
-    <div>
-        <input type="submit" value="Update Password">
-    </div>
-</form>
+</div>

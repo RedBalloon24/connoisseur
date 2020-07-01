@@ -1,7 +1,7 @@
 <% layout('layouts/postsIndex') -%>
 
 
-<div class="conatiner-fluid" style="padding-left: 15%; padding-right: 15%; padding-top: 50px; padding-bottom: 50px;">
+<div class="conatiner-fluid otherContainer">
 	<div class="card card-body bg-light shadow">
 		<div class="like-btn float-right">
 			<form action="/users/<%= user._id %>/follow" method="POST">
@@ -105,7 +105,7 @@
 			<a href="#collapseEditProfile" class="btn btn-warning btn-sm" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseEditProfile">Update Profile</a>
 			<div class="collapse" id="collapseEditProfile">
 				<div class="card card-body mt-3">
-					<div class="" style="padding-left: 30%; padding-right: 30%;">
+					<div class="padding30">
 						<form action="/users/<%= currentUser._id %>?_method=PUT" method="POST" class="mt-1" enctype="multipart/form-data">
 							<div class="form-group">
 								<label class="form-class" for="username">Username:</label>
@@ -187,7 +187,7 @@
 			</div>
 			<div class="col-9">
 				<div class="tab-content" id="v-pills-tabContent">
-					<div class="tab-pane fade show active" style="height: 500px; overflow-y: scroll; overflow-x: hidden;" id="v-pills-posts" role="tabpanel" aria-labelledby="v-pills-posts-tab">
+					<div class="tab-pane fade show active profileTab" id="v-pills-posts" role="tabpanel" aria-labelledby="v-pills-posts-tab">
 						<% if(posts.length === 0) { %> 
 							<p>User has not created any posts.</p>
 						<% } else { %>
@@ -203,7 +203,7 @@
 											<div class="card-body mt-3">
 												<div class="card-text">
 													<a href="/posts/<%= post.id %>" class="link text-dark font-weight-bold text-uppercase"><%= post.title %></a><br>
-													<p style="margin-bottom: 0;">from</p>
+													<p class="mb-0">from</p>
 													<p class="text-danger text-capitalize"><%= post.location %></p>
 												</div>
 											</div>
@@ -213,7 +213,7 @@
 							</div>
 						<% } %>
 					</div>					
-					<div class="tab-pane fade" id="v-pills-reviews" role="tabpanel" aria-labelledby="v-pills-reviews-tab" style="height: 500px; overflow-y: scroll; overflow-x: hidden;">
+					<div class="tab-pane fade profileTab" id="v-pills-reviews" role="tabpanel" aria-labelledby="v-pills-reviews-tab">
 						<% if(reviews.length === 0)  { %> 
 							<p>User has not created any reviews.</p>
 						<% } else { %>
@@ -241,26 +241,33 @@
 						<% } %>
 					</div>
 
-					<div class="tab-pane fade" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab" style="height: 500px; overflow-y: scroll; overflow-x: hidden;">
+					<div class="tab-pane fade profileTab" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
 						<% if(orders.length === 0)  { %> 
 							<p>No purchases have been made.</p>
 						<% } else { %>
-							<div class="row pl-3">
-								<% orders.forEach((order) =>  { %>
-									<div class="shadow col-5 mx-1 my-1" data-aos="flip-left" data-aos-duration="1200" >
-										<h4 class="">Purchased 08/23/2020</h4>
+							<% orders.forEach((order) =>  { %>
+								<div class="row pl-3">
+									<div class="shadow col-8 mx-1 my-1 mb-4" data-aos="flip-left" data-aos-duration="1200">
+										<h4 class="card-header text-light font-weight-bold bg-dark mb-3">Purchased on <%= moment(order._id).format('DD') %>/<%= moment(order._id).format('MM') %>/<%= moment(order._id).format('YYYY') %>
+										</h4>
 										<% order.items.forEach((item) =>  { %>
-											<div class="card-body">
-												<i class="fas fa-plus-square"></i>	<%= item.item.title %>  || <%= item.qty %>  Units					price: <%= item.price %>
-										
+											<div class="card-text ml-5 mb-2 font-20">
+												<% if(item.qty < 2) { %>
+													<li>
+														<a href="/posts/<%= item.item._id %>" class="text-danger font-weight-bold">  <%= item.item.title %></a> ||  <%= item.qty %>  Unit <i class="fas fa-long-arrow-alt-right"></i> <%= item.price %>€
+													</li>
+												<% } else { %>
+													<li>
+														<a href="/posts/<%= item.item._id %>" class="text-danger font-weight-bold">  <%= item.item.title %></a> ||  <%= item.qty %>  Units <i class="fas fa-long-arrow-alt-right"></i> <%= item.price %>€
+													</li>
+												<% } %>
 											</div>		
-
-											<% }) %>
-												<p class="text-capitalize">Total Price: <%= order.cart.totalPrice %></p>	
-										</div>
+										<% }) %>
+										<hr>
+										<p class="text-capitalize mt-2 text-center font-weight-bold text-dark">Total Price: <%= order.cart.totalPrice %>€ </p>	
 									</div>
-								<% }) %>
-							</div>
+								</div>
+							<% }) %>
 						<% } %>
 					</div>
 				</div>

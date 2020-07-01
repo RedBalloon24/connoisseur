@@ -17,9 +17,9 @@
             <div>
                 <% for(let i = 0; i < 5; i++) { %>
                     <% if(i < post.avgRating) { %>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star" style="color: goldenrod !important;"></i>
                     <% } else if((post.avgRating - i) > 0 && (post.avgRating - i) < 1) { %>
-                        <i class="fas fa-star-half-alt"></i>
+                        <i class="fas fa-star-half-alt" style="color: goldenrod !important;"></i>
                     <% } else { %>
                         <i class="far fa-star"></i>
                     <% } %>

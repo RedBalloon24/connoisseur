@@ -61,6 +61,7 @@ module.exports = {
             let followerUser = await User.findById(follower._id);
             followerUser.notifications.push(notification);
             followerUser.save();
+
         }
         
 

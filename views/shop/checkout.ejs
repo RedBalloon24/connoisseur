@@ -2,59 +2,47 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 
-<div class="example example1 shadow">
-  <div class="mx-5 py-2">
-    <h1 class="text-danger text-center mt-3 font-weight-bold" style="font-size: 35px;">Checkout</h1>
-    <form action="/checkout" method="post" id="payment-form">
-      <fieldset class="contact-info">
-        <div class="row">
-          <span>
-            Name
-          </span>  
-          <input id="name" name="name" class="text-capitalize bottom-border ml-5" placeholder="Mary" required>
-        </div>
-        <div class="row">
-          <span class="mr-2">
-            Address
-          </span>
-          <input id="address" name="address" class="text-capitalize bottom-border ml-4" type="text" placeholder="185 Berry Street" required>
-        </div>
-        <div class="row">
-          <span class="mr-3">
-            City
-          </span>
-          <input id="city" name="city" class="text-capitalize bottom-border ml-5" type="text" placeholder="San Francisco" required>
-        </div> 
-        <div class="row">
-          <span class="mr-2">
-            Country
-          </span>
-          <input id="country" name="country" class="text-capitalize bottom-border ml-4" type="text" placeholder="USA" required>
-        </div>
-        <div class="row">
-          <span>
-            Post Code
-          </span>
-          <input id="postCode" name="postCode" class="bottom-border ml-4" type="text" placeholder="99999" required>
-        </div>
-      </fieldset>
-      <fieldset class="card-info">
-          <div class="row">
-            <span for="card-element">
-              Card Details
-            </span>
-            
-            <div id="card-element" class="ml-3">
-              <!-- A Stripe Element will be inserted here. -->
-            </div>
-          </div>
 
-      </fieldset>
-      <button class="btn text-danger shadow">Submit Payment</button>
-      <!-- Used to display form errors. -->
-      <div id="card-errors" role="alert"></div>
-    </form>
-  </div>
+<div class="modal-dialog cascading-modal new-post" >
+    <div class="modal-content border border-light">
+      <div >
+        <div class="tab-pane active">
+          <div class="modal-body mb-1">
+            <h1 class="text-center font-weight-bold text-danger">Checkout</h1>
+            <form action="/checkout" method="post" id="payment-form">
+                <fieldset class="border border-dark px-5">
+                    <p  class="text-center mt-3">Personal Details</p>
+                    <div class="md-form form-sm mb-3 ">
+                        <input id="name" name="name" class="form-control form-control-sm text-capitalize" placeholder="Name" required>
+                    </div>
+                    <div class="md-form form-sm mb-3">
+                        <input id="address" name="address" class="form-control form-control-sm text-capitalize" type="text" placeholder="Address" required>
+                    </div>
+                    <div class="md-form form-sm mb-3">
+                        <input id="city" name="city" class="form-control form-control-sm text-capitalize" type="text" placeholder="City" required>
+                    </div>
+                    <div class="md-form form-sm mb-3">
+                        <input id="country" name="country" class="form-control form-control-sm text-capitalize" type="text" placeholder="country" required>
+                    </div>
+                    <div class="md-form form-sm mb-5">
+                        <input id="postCode" name="postCode" class="form-control form-control-sm text-capitalize" type="text" placeholder="Post Code" required>
+                    </div>
+                </fieldset>    
+                <fieldset class="border border-dark px-5 mb-5 mt-3 text-center">
+                    <label for="card-element" class="mt-3">Card Details</label>
+                    <div class="md-form form-sm mb-5" id="card-element">
+                    </div>
+                </fieldset>
+                <div class="text-center mt-2 mb-5">
+                    <button type="submit" class="btn btn-outline-danger btn-lg btn-block">Submit Payment</button>
+                </div>
+                <div id="card-errors" role="alert"></div>
+            </form>
+            </div>
+          </div>    
+        </div>
+    </div>
 </div>
+
 
 <script src="javascripts/checkout.js"></script>
