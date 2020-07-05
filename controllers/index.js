@@ -84,7 +84,7 @@ module.exports = {
         const user = await User.findById(req.params.id);
         const posts = await Post.find().where('author.id', user._id).sort({ _id: -1 }).exec();
         const reviews = await Review.find().where('author', user._id).sort({ _id: -1 }).exec();
-        const orders = await Order.find({userId: req.user});
+        const orders = await Order.find({userId: req.user}).where('userId', user._id);
     
         orders.forEach((order) => {
             let cart = new Cart(order.cart);
@@ -113,7 +113,7 @@ module.exports = {
         req.session.success = 'Profile successfully updated!';
         res.redirect(`/users/${currentUser._id}`);        
     },
-    //POST /profile/follow
+    //POST /user/follow
     async postFollow(req, res, next) {
         let user = await User.findById(req.params.id);
   
@@ -123,12 +123,13 @@ module.exports = {
 
         if(userFollow) {
             user.followers.pull(req.user);
+            req.session.success = `Successfully unfollowed ${user.username}!`
         } else {
             user.followers.push(req.user);
+            req.session.success = `Successfully followed ${user.username}!`
         }
 
         user.save()
-        req.session.success = `Successfylly followed ${user.username}!`
         res.redirect( { user }, `/users/${user._id}`)
     },
     //GET /notifications
@@ -185,7 +186,6 @@ module.exports = {
         let postId = req.params.id;
         let cart = await new Cart(req.session.cart ? req.session.cart : {});
 
-
         cart.removeItem(postId);
         req.session.cart = cart;
         res.redirect('/shopping-cart');
@@ -195,6 +195,7 @@ module.exports = {
         if(!req.session.cart) {
             return res.redirect('/shopping-cart');
         }
+
         let cart = await new Cart(req.session.cart);
         return res.render('shop/checkout', { total: cart.totalPrice });
     },
@@ -222,7 +223,7 @@ module.exports = {
             city: req.body.city,
             country: req.body.country,
             postCode: req.body.postCode,
-            userName: req.body.name,
+            userName: req.user.username,
             paymentId: charge.id
         });
 

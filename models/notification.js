@@ -8,7 +8,11 @@ const notificationSchema = new Schema({
 	isRead: { 
         type: Boolean, 
         default: false 
-    }
+    },
+    time: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 module.exports = mongoose.model('Notification', notificationSchema);

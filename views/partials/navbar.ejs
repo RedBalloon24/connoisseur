@@ -28,11 +28,11 @@
                     <% if(currentUser) { %>
                         <% if(session.cart) { %>
                             <div class="nav-item">
-                                <a class="nav-link text-light" href="/shopping-cart"><i class="fas fa-shopping-cart mr-2"></i>Shopping Cart<span class="badge badge-light ml-2"><%= session.cart.totalQty %></span></a>
+                                <a class="nav-link text-light mr-2" href="/shopping-cart"><i class="fas fa-shopping-cart mr-2"></i><span class="badge badge-light"><%= session.cart.totalQty %></span></a>
                             </div>
                         <% } else { %>
                             <div class="nav-item">
-                                <a class="nav-link text-light" href="/shopping-cart"><i class="fas fa-shopping-cart mr-2"></i>Shopping Cart<span class="badge badge-light ml-2">0</span></a>
+                                <a class="nav-link text-light mr-2" href="/shopping-cart"><i class="fas fa-shopping-cart mr-2"></i><span class="badge badge-light">0</span></a>
                             </div>
                         <% } %>
 
@@ -46,7 +46,7 @@
                                     <hr>                        
                                     <li class="">
                                         <a class="text-danger font-weight-bold text-capitalize" href="/notifications/<%= notification.id %>" style="font-size: 13px;">
-                                            - New post/review by <%= notification.username %> 
+                                            - <%= notification.username %> shared something new 
                                         </a>
                                     </li>
                                 <% }); %>

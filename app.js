@@ -62,8 +62,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   store: new MongoStore({ mongooseConnection: db}),
-  //15 minute expiration
-  cookie: { maxAge: 15 * 60 * 1000 },
+  //3 hour expiration
+  cookie: { maxAge: 180 * 60 * 1000 },
 }));
 
 app.use(passport.initialize());
@@ -75,14 +75,6 @@ passport.deserializeUser(User.deserializeUser());
 
 // set local variables middleware
 app.use(async function(req, res, next) {
-  // req.user = {
-  //   // '_id' : '5ecc09dde4cede254bdad645',
-  //   // 'username' : 'bob3'
-  //   // '_id' : '5ec91a422d8cce168c08f5a4',
-  //   // 'username' : 'bob2'
-  //   '_id' : '5ec68e95557e951b2e6e7ff6',
-  //   'username' : 'bob'
-  // }
   res.locals.currentUser = req.user;
   if(req.user) {
       let user = await User.findById(req.user._id).populate('notifications', null, { isRead: false }).exec();

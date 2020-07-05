@@ -5,31 +5,43 @@
     <% include ../partials/filter %>
 </div>
 
-<div class="container-fluid" style="padding-left: 15%;">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-10">
+        <div class="col-12 px-5">
           <div class="row">
-            <div class="col-10" style="padding-left: 10%;">
+            <div class="col-lg-10 col-md-8 col-sm-8 left-padding12">
               <form class="Flatsearch" action="/posts" method="GET">    
                 <input type="text" name="search" id="search" placeholder="Search here..." value="<%= query.search %>" />
                 <button type="submit"><i class="fas fa-search text-danger"></i></button>
               </form>
             </div> 
-          <button class="Flatsearch filter" id="filter"><i class="fas fa-filter filter"></i>Filter</button> 
+            <div>
+              <button class="Flatsearch filter left-margin15" id="filter"><i class="fas fa-filter filter"></i>Filter</button> 
+            </div>
+     
           </div>
           <br><br>
-          <div class="shadow" id="map" style="z-index: 1;"></div>
+          <div class="shadow placement1" id="map"></div>
         </div>
     </div>
 </div>
 
-<div class="container-fluid" style="padding-left: 17%; padding-right: 17%; padding-bottom: 110px;">
+<div class="container-fluid post-padding">
     <% include ../partials/paginatePosts %>
 
+    <% if(error) { %>
+      <div class="mt-4">
+        <h2 class="text-center">
+          Click <a href="/posts" class="text-danger mx-1" id="reset"> here </a> to reset search. 
+        </h2>
+      </div>
+    <% } else { %>
+
+    <% } %>
      <div class="blog-home2 row m-t-40">
     <% posts.docs.forEach((post) => { %>
-        <div class="col-lg-3 col-sm-4">
-            <div class="card shadow" data-aos="flip-left" data-aos-duration="1200">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card shadow img-fluid" data-aos="flip-left" data-aos-duration="1200">
                 <a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" alt="wrappixel kit" class="card-img-top"></a>
                 <div class="date-pos bg-danger-gradiant">
                     <%= post.price %>€

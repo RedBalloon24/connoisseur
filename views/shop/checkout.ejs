@@ -3,7 +3,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 
-<div class="modal-dialog cascading-modal new-post" >
+<div class="modal-dialog cascading-modal new-post px-3" >
     <div class="modal-content border border-light">
       <div >
         <div class="tab-pane active">
@@ -13,7 +13,7 @@
                 <fieldset class="border border-dark px-5">
                     <p  class="text-center mt-3">Personal Details</p>
                     <div class="md-form form-sm mb-3 ">
-                        <input id="name" name="name" class="form-control form-control-sm text-capitalize" placeholder="Name" required>
+                        <input id="name" name="name" class="form-control form-control-sm text-capitalize font-weight-bold" placeholder="<%= currentUser.username %>" disabled required>
                     </div>
                     <div class="md-form form-sm mb-3">
                         <input id="address" name="address" class="form-control form-control-sm text-capitalize" type="text" placeholder="Address" required>
@@ -28,9 +28,9 @@
                         <input id="postCode" name="postCode" class="form-control form-control-sm text-capitalize" type="text" placeholder="Post Code" required>
                     </div>
                 </fieldset>    
-                <fieldset class="border border-dark px-5 mb-5 mt-3 text-center">
+                <fieldset class="border border-dark  px-3 mb-5 mt-3 text-center sm-checkout">
                     <label for="card-element" class="mt-3">Card Details</label>
-                    <div class="md-form form-sm mb-5" id="card-element">
+                    <div class="md-form form-sm mb-5 px-2" id="card-element">
                     </div>
                 </fieldset>
                 <div class="text-center mt-2 mb-5">

@@ -50,7 +50,6 @@ module.exports = {
 
         let user = await User.findById(req.user._id);
 
-
         let newNotification = {
             username: req.user.username,
             postId: post.id
@@ -61,9 +60,7 @@ module.exports = {
             let followerUser = await User.findById(follower._id);
             followerUser.notifications.push(notification);
             followerUser.save();
-
         }
-        
 
         await post.save();          
         req.session.success = "Post created successfully!";
@@ -79,7 +76,6 @@ module.exports = {
                 model: 'User'
             }
         });
-
         const floorRating = post.calculateAvgRating();
         // const floorRating = post.avgRating;
         res.render('posts/show', { post, mapBoxToken, floorRating, title: 'Posts Show' });
@@ -150,10 +146,13 @@ module.exports = {
     async getAddToCart(req,res, next) {
         let cart = new Cart(req.session.cart ? req.session.cart : {});
         let post = await Post.findById(req.params.id);
+       
 
         cart.add(post, post.id);
+
         req.session.cart = cart;
         console.log(req.session.cart);
+
         res.redirect(`/posts/${post.id}`);
-    },
+    }
 }

@@ -1,25 +1,24 @@
 <% layout('layouts/postsShow') -%>
 
-<div class="conatiner-fluid" style="padding-left: 15%; padding-right: 15%; padding-top: 50px ;">
-    <h1 class="text-capitalize" style="font-size: 64px;"><%= post.title %></h1>            
-    <div class="text-uppercase" style="font-size: 25px; margin-top: 15px; margin-bottom: 30px;"><%= post.type %> wine from <%= post.location %></div>
-    <div class="text-uppercase" style="font-size: 15px; margin-top: 15px; margin-bottom: 30px;">by: <a href="/users/<%= post.author.id %>" class="text-dark"><%= post.author.username %></a></div>
-
+<div class="conatiner-fluid postShow-padding">
+    <h1 class="text-capitalize font64"><%= post.title %></h1>            
+    <div class="text-uppercase location-style"><%= post.type %> wine from <%= post.location %></div>
+    <div class="text-uppercase author-style">by: <a href="/users/<%= post.author.id %>" class="text-dark"><%= post.author.username %></a></div>
 
     <div class="row d-flex justify-content-around">
-        <div class="col-md-3">
+        <div class="col-md-6">
             <% post.images.forEach((image) => { %>
-                <img src="<%= image.url %>" alt="wine image" class="shadow" width="500px">
+                <img src="<%= image.url %>" alt="wine image" class="shadow img-fluid" width="500px">
             <% }); %>
         </div>
         <div class="col-md-3">
-            <div class="text-danger font-weight-bold" style="font-size: 24px;">Price: <%= post.price %>€ / bottle</div>
+            <div class="text-danger font-weight-bold font24">Price: <%= post.price %>€ / bottle</div>
             <div>
                 <% for(let i = 0; i < 5; i++) { %>
                     <% if(i < post.avgRating) { %>
-                        <i class="fas fa-star" style="color: goldenrod !important;"></i>
+                        <i class="fas fa-star gold-star"></i>
                     <% } else if((post.avgRating - i) > 0 && (post.avgRating - i) < 1) { %>
-                        <i class="fas fa-star-half-alt" style="color: goldenrod !important;"></i>
+                        <i class="fas fa-star-half-alt gold-star""></i>
                     <% } else { %>
                         <i class="far fa-star"></i>
                     <% } %>
@@ -31,26 +30,26 @@
             </div>
         </div>
     </div>
-    <div class="text-dark" style="margin-top: 30px; margin-bottom: 30px;"><%= post.description %></div>
+    <div class="text-dark margin30"><%= post.description %></div>
+    Posted: <%= moment(post.createdAt).fromNow() %>
    
     <!-- <div id='map'></div> -->
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center mt-3">
         <% if(currentUser && post.author.id.equals(currentUser._id)) { %>
-            <div style="margin-right: 20px; margin-left: 45px;">
-                <a href="/posts/<%= post.id %>/edit" class="btn btn-xs btn-warning shadow text-dark font-weight-bold">Edit</a>
+            <div class="text-center">
+                <a href="/posts/<%= post.id %>/edit" class="btn btn btn-warning shadow text-dark font-weight-bold">Edit</a>
             </div>
-            <div>
+            <div class="text-center">
                 <form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
-                    <input type="submit" class="btn btn-xs btn-danger shadow text-dark font-weight-bold" value="Delete">
+                    <input type="submit" class="btn btn btn-danger shadow text-dark font-weight-bold" value="Delete">
                 </form>
             </div>
         <% } %>
     </div>
 
-
     <div class="card card-body bg-light shadow mt-5">
         <div class="text-right">
-            <a class="btn btn-success float-right shadow font-weight-bold" role="button" data-toggle="collapse" href="#collapseReview" aria-expanded="false" aria-controls="collapseReview"><i class="fas fa-plus" aria-hidden="true"></i> Add new review</a>
+            <a class="btn btn-md btn-success float-right shadow font-weight-bold btn-center" role="button" data-toggle="collapse" href="#collapseReview" aria-expanded="false" aria-controls="collapseReview"><i class="fas fa-plus" aria-hidden="true"></i> Add review</a>
         </div>
         <h5><strong>Reviews <i class="fas fa-comment-alt" aria-hidden="true"></i></strong></h5>
         <hr>
@@ -105,9 +104,9 @@
                     </strong>  
                     <% for(let i = 0; i < 5; i++) { %>
                         <% if(i < review.rating) { %>
-                            <i class="fas fa-star" style="color: goldenrod !important;"></i>
+                            <i class="fas fa-star gold-star"></i>
                         <% } else { %>
-                            <i class="far fa-star" style="color: goldenrod !important;"></i>
+                            <i class="far fa-star gold-star"></i>
                         <% } %>
                     <% } %>
                     <br><br>                
@@ -119,16 +118,15 @@
                     
                     <p><%= review.body %></p>
                   
-                    <span class="float-right"><%= moment(review.createdAt).fromNow() %></span><br><br>
+                    <span class="float-right"><%= moment(review.createdAt).fromNow() %></span><br>
                    
                     <% if(currentUser && review.author.equals(currentUser._id)){ %>
-                        <div class="row">
-                            <a href="#collapseEdit<%= review._id %>" class="btn btn-xs btn-warning shadow font-weight-bold" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="#collapse<%= review.id %>">Edit</a>
+                        <div class="row mt-3">
+                            <a href="#collapseEdit<%= review._id %>" class="btn btn-sm btn-warning shadow font-weight-bold" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="#collapse<%= review.id %>">Edit</a>
                             <form class="delete-form" action="/posts/<%= post.id %>/reviews/<%= review.id %>/?_method=DELETE" method="POST">
-                                <button class="btn btn-xs btn-danger shadow font-weight-bold">Delete</button>
+                                <button class="btn btn-sm btn-danger shadow font-weight-bold">Delete</button>
                             </form>
                         </div>
-                       
                         <div class="collapse" id="collapseEdit<%= review.id %>">
                             <div class="card card-body bg-light border-dark">
                                 <h4>Edit your comment <i class="fas fa-edit" aria-hidden="true"></i></h4>
@@ -158,18 +156,14 @@
                                             <label for="edit-rate5" title="Amazing">5 stars</label>
                                             <button class="clear-rating btn btn-info btn-sm shadow font-weight-bold" type="button">Clear Rating</button>
                                         </fieldset> 
-                                    </div>
-
-                        
+                                    </div>                        
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-warning btn-sm shadow float-right font-weight-bold" value="Update">Submit</button>
                                     </div>
                                 </form>
-
                                 <script>
                                     $('#edit-rate<%= review.rating %>').prop('checked', true);
                                 </script>
-                
                             </div> 
                         </div>
                     <% } %>

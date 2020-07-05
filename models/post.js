@@ -48,11 +48,15 @@ const PostSchema = new Schema({
     avgRating: { 
         type: Number,
         default: 0
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 PostSchema.pre('remove', async function() {
-    await Review.remove({
+    await Review.deleteMany({
         _id: {
             $in: this.reviews
         }

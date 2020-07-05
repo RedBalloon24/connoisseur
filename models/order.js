@@ -34,7 +34,10 @@ const orderSchema = new Schema({
     paymentId: { 
         type: String, 
         required: true 
-    }
+    },
+    createdAt: {
+        type: Date
+    },
 });
 
 module.exports = mongoose.model('Order', orderSchema);

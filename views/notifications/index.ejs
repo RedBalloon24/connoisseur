@@ -1,19 +1,24 @@
 <% layout('layouts/postsIndex') -%>
 
-<div class="card" style="margin-left: 550px; margin-right: 550px;">
-	<div class="card-body">
-		<h1 class="text-center my-4 text-danger">Notifications</h1>
-		<div class="card">
-			<ul>
-			<% allNotifications.forEach(function(notification) { %>
-				<li class="my-3 pl-3 ml-5 ">
-					<a href="/posts/<%= notification.postId %>" class="text-capitalize text-dark" style="font-size: 20px;">
-						<%= notification.username %> created a new post/review %>
-					</a>
-				</li>
-			<% }); %>
-			</ul>
+<div class="container-fluid mb-5">
+	<div class="row justify-content-center">
+		<div class="col-lg-4 col-4-md col-sm-6">
+			<div class="card sm-notification-margin">
+				<div class="card-body sm-notification-padding">
+				<h1 class="text-center my-4 text-danger md-font28 md-font25 sm-font25">Notifications</h1>
+					<div class="card">
+						<ul class="left-padding0">
+							<% allNotifications.forEach(function(notification) { %>
+								<li class="my-3 pl-3 ml-5 sm-notification-mr">
+									<a href="/posts/<%= notification.postId %>" class="text-capitalize text-dark font-20 sm-font12">
+										<%= notification.username %> created a new post/review (<%= moment(notification.time).fromNow() %> )
+									</a>
+								</li>
+							<% }); %> 	
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-

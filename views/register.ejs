@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') -%>
 
-  <div class="modal-dialog cascading-modal register">
+  <div class="modal-dialog cascading-modal register px-3">
     <div class="modal-content border border-light">
       <div class="modal-c-tabs">
         <ul class="nav nav-tabs md-tabs bg-dark">
@@ -15,7 +15,7 @@
             <form action="/register" method="POST" enctype="multipart/form-data"> 
               <div class="md-form form-sm mb-4">
                 <i class="fas fa-user prefix"></i>
-                <input type="text" id="username" name="username" class="form-control form-control-sm" placeholder="Username" value="<%= username %>" required>
+                <input type="text" id="username" name="username" class="form-control form-control-sm text-capitalize" placeholder="Username" value="<%= username %>" required>
             </div>
               <div class="md-form form-sm mb-4">
                 <i class="fas fa-lock prefix"></i>

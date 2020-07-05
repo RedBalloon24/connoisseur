@@ -29,14 +29,14 @@
                     <textarea class="form-control form-control-sm" name="post[description]" placeholder="Description" rows="5" required><%= post.description %></textarea>
                 </div>
                 <div class="md-form form-sm mb-3">
-                    <label for="image">Please select <u>ONE</u> image:</label><br><br>
-                    <input class="form-control form-control-sm pt-1" type="file" id="imageUpload" accept="images/*" name="images" required>
-                    <div>
+                    <label for="image" class="text-wrap">To change your current image select the box below, then upload <u>ONE</u> image as a replacement:</label><br><br>
+                    <div class="text-center">
                         <% post.images.forEach((image, i) => { %>
                             <img src="<%= image.url %>" width="100px">
                             <input type="checkbox" name="deleteImages[]" class="imageDeleteCheckBox" id="image<%= i %>" value="<%= image.public_id %>">
                         <% }); %>
-                    </div>
+                    </div><br>
+                    <input class="form-control form-control-sm pt-1" type="file" id="imageUpload" accept="images/*" name="images">
                 </div>
                 <div class="md-form form-sm mb-4">
                     <input class="form-control form-control-sm" type="text" name="post[location]" placeholder="Location" value="<%= post.location %>" required>

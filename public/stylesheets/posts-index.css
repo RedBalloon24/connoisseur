@@ -1,3 +1,7 @@
+.index-title {
+  font-size: 70px;
+}
+
 .card-img-top {
     width: 100%;
     border-top-left-radius: calc(.25rem - 1px);
@@ -89,6 +93,7 @@
     padding: 15px;
     transition: all 0.5s ease 0s;
 }
+
 .Flatsearch:hover, .Flatsearch:focus {
     box-shadow: 0 0 7px rgb(71, 66, 66); 
 }
@@ -112,8 +117,8 @@
 }
 
 .padding30 {
-    padding-left: 30%; 
-    padding-right: 30%;"
+    padding-left: 5%; 
+    padding-right: 5%;
 }
 
 .profileTab{
@@ -121,6 +126,76 @@
     overflow-y: scroll; 
     overflow-x: hidden;
 }
+
+.gold-star {
+  color: goldenrod !important;
+  font-size: 80%;
+}
+
+.notification-margin {
+  margin-left: 550px; 
+  margin-right: 550px;
+}
+
+.page-margin {
+  margin: 20px 0;
+}
+
+.pl-15 {
+  padding-left: 15%;
+}
+
+.pl-10 {
+  padding-left: 10%;
+}
+
+.placement1 {
+  z-index: 1;
+}
+
+.post-padding {
+  padding-left: 17%; 
+  padding-right: 17%; 
+  padding-bottom: 110px;
+}
+
+.no-display {
+  display: none;
+}
+
+.cart-background {
+  background-color: whitesmoke;
+}
+
+.mb400 {
+  margin-bottom: 400px;
+}
+
+.checkoutSuccess-padding {
+  padding-bottom: 200px; 
+  padding-top: 40px;
+}
+
+.checkoutSuccess-card {
+  width: 700px; 
+  height: 500px; 
+  padding-top: 150px;
+  margin: 0 auto;
+}
+
+.modal-body {
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+}
+
+.order-font{
+  font-size: 30px;
+}
+
+.review-font-size {
+  font-size: 80%;
+}
+
 /**
 * The CSS shown here will not be introduced in the Quickstart guide, but shows
 * how you can use CSS to style your Element's container.
@@ -131,149 +206,465 @@
     height: 40px;
   
     padding: 10px 12px;
-  
     border: 1px solid transparent;
     border-radius: 4px;
     background-color: white;
   
-    box-shadow: 0 1px 3px 0 #e6ebf1;
+    box-shadow: 0 1px 3px 0 black;
     -webkit-transition: box-shadow 150ms ease;
     transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+#card-element {
+  width: 100%;
+}
+
+.example.example1 {
+  background-color: black;
+  height: 700px;
+  margin-left: 15%;
+  margin-right: 15%;
+  border: 1px solid black;
+}
+
+.example.example1 * {
+  font-family: Roboto, Open Sans, Segoe UI, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.example.example1 fieldset {
+  margin: 0 15px 20px;
+  padding: 0;
+  border-style: none;
+  background-color: white;
+}
+
+.example.example1 .row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-left: 35px;
+  margin-right: 35px;
+  margin-top: 25px;
+}
+
+
+.example.example1 label {
+  width: 25%;
+  min-width: 70px;
+  padding: 11px 0;
+  color: green;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.example.example1 input, .example.example1 button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border-style: none;
+}
+
+.example.example1 input:-webkit-autofill {
+  -webkit-text-fill-color: black;
+  transition: background-color 100000000s;
+  -webkit-animation: 1ms void-animation-out;
+}
+
+.example.example1 .StripeElement--webkit-autofill {
+  background: transparent !important;
+}
+
+.example.example1 .StripeElement {
+  width: 100%;
+  padding: 11px 15px 11px 0;
+}
+
+.example.example1 input {
+  width: 70%;
+  padding: 11px 15px 11px 0;
+  color: black;
+  background-color: transparent;
+  -webkit-animation: 1ms void-animation-out;
+}
+
+.example.example1 input::-webkit-input-placeholder {
+  color: gainsboro
+}
+
+.example.example1 input::-moz-placeholder {
+  color: gainsboro;
+}
+
+.example.example1 input:-ms-input-placeholder {
+  color: gainsboro;
+}
+
+.example.example1 button {
+  display: block;
+  width: calc(100% - 30px);
+  height: 40px;
+  margin: 40px 15px 0;
+  background-color: white;
+  border-radius: 4px;
+  border: 2px solid darkred;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.example.example1 .error svg .base {
+  fill: #fff;
+}
+
+.example.example1 .error svg .glyph {
+  fill: #6772e5;
+}
+
+.example.example1 .error .message {
+  color: #fff;
+}
+
+.contact-info {
+  border: 2px solid darkred;  
+}
+
+.bottom-border {
+  border-bottom: 1px solid #cfcfc5 !important;
+}
+
+.card-info {
+  height: 80px;
+  background-color: white;
+}
+
+.left-margin10 {
+  margin-left: 10%;
+}
+
+.left-margin15 {
+  margin-left: 15%;
+}
+
+.left-padding12 {
+  padding-left: 12%;
+}
+
+.checkoutSucces-title {
+  font-size: 30px !important;
+}
+
+
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 439px) { 
+  .btn-xs {
+    padding-top: 2% !important;
+    padding-bottom: 2% !important;
+    padding-left: 4% !important;
+    padding-right: 4% !important;
   }
-  
-  .StripeElement--focus {
-    box-shadow: 0 1px 3px 0 #cfd7df;
+
+  .left-padding0 {
+    padding-left: 0;
   }
-  
-  .StripeElement--invalid {
-    border-color: #fa755a;
+
+  .left-padding12 {
+    padding-left: 3%;
   }
-  
-  .StripeElement--webkit-autofill {
-    background-color: #fefde5 !important;
+
+  .otherContainer {
+    padding-left: 3%; 
+    padding-right: 3%; 
+    padding-top: 0px;
+    padding-bottom: 50px
   }
-  
-  #card-element {
-    width: 320px;
+
+  .sm-font10 {
+    font-size: 10px !important;
   }
-  
-  .example.example1 {
-    background-color: black;
-    height: 700px;
-    margin-left: 15%;
-    margin-right: 15%;
-    border: 1px solid black;
+ 
+  .sm-font12 {
+    font-size: 12px !important;
   }
-  
-  .example.example1 * {
-    font-family: Roboto, Open Sans, Segoe UI, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
+
+  .sm-font15 {
+    font-size: 15px !important;
   }
-  
-  .example.example1 fieldset {
-    margin: 0 15px 20px;
-    padding: 0;
-    border-style: none;
-    background-color: white;
+
+  .sm-font20 {
+    font-size: 20px !important;
   }
-  
-  .example.example1 .row {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    margin-left: 35px;
-    margin-right: 35px;
-    margin-top: 25px;
+
+  .sm-font25 {
+    font-size: 25px !important;
   }
-  
-  
-  .example.example1 label {
-    width: 25%;
-    min-width: 70px;
-    padding: 11px 0;
-    color: green;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+  .sm-activity-feed {
+    width: 99%;
+    margin-left: 1%;
   }
-  
-  .example.example1 input, .example.example1 button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: none;
-    border-style: none;
+
+  .sm-activity-feed2 {
+    width: 112%;
+    margin-left: 1%;
   }
-  
-  .example.example1 input:-webkit-autofill {
-    -webkit-text-fill-color: black;
-    transition: background-color 100000000s;
-    -webkit-animation: 1ms void-animation-out;
+
+  .sm-activity-feed3 {
+    width: 137%;
+    margin-left: 1%;
   }
-  
-  .example.example1 .StripeElement--webkit-autofill {
-    background: transparent !important;
+
+  .sm-spacing {
+    margin-top: 0 !important;
+    padding-bottom: 0 !important;
   }
-  
-  .example.example1 .StripeElement {
-    width: 100%;
-    padding: 11px 15px 11px 0;
+
+  .sm-post-padding {
+    padding-bottom: 0 !important;
   }
-  
-  .example.example1 input {
-    width: 70%;
-    padding: 11px 15px 11px 0;
-    color: black;
-    background-color: transparent;
-    -webkit-animation: 1ms void-animation-out;
+  .sm-review-padding {
+    padding-left: 8px;
+    padding-right: 8px;
   }
-  
-  .example.example1 input::-webkit-input-placeholder {
-    color: gainsboro
+
+  .gold-star {
+    color: goldenrod !important;
+    font-size: 50%;
   }
-  
-  .example.example1 input::-moz-placeholder {
-    color: gainsboro;
+ 
+  .review-font-size {
+    font-size: 50%;
   }
-  
-  .example.example1 input:-ms-input-placeholder {
-    color: gainsboro;
+
+  .left-margin5 {
+    margin-left: 5%;
   }
-  
-  .example.example1 button {
-    display: block;
-    width: calc(100% - 30px);
-    height: 40px;
-    margin: 40px 15px 0;
-    background-color: white;
-    border-radius: 4px;
-    border: 2px solid darkred;
-    font-weight: 600;
-    cursor: pointer;
+
+  .sm-order-header {
+    font-size: 13px !important;
+    padding-left: 12px;
+    padding-right: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
-  
-  .example.example1 .error svg .base {
-    fill: #fff;
+
+  .sm-order-padding {
+    padding-left: 8px;
+    padding-right: 8px;
   }
-  
-  .example.example1 .error svg .glyph {
-    fill: #6772e5;
+
+  .sm-checkout {
+    padding-left: 4% !important;
+    padding-right: 4% !important;
+
   }
-  
-  .example.example1 .error .message {
-    color: #fff;
+
+  .checkoutSuccess-card {
+    width: 400px;
+    height: 300px;
+    padding-top: 35px;
   }
-  
-  .contact-info {
-    border: 2px solid darkred;  
+
+  .checkoutSucces-title {
+    font-size: 20px !important;
   }
-  
-  .bottom-border {
-    border-bottom: 1px solid #cfcfc5 !important;
+
+  .checkoutSuccess-card {
+    width: 280px;
+    height: 220px;
+    padding-top: 5px;
   }
-  
-  .card-info {
-    height: 80px;
-    background-color: white;
+
+  .sm-notification-margin {
+    margin-left: 4.5%;
+    margin-right: 6%;
+    padding: 0.5rem;
   }
+
+  .sm-notification-mr {
+    margin-right: 10% !important;
+  }
+
+  .sm-notification-padding {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
+
+}
+
+@media (min-width: 440px) and (max-width: 575.98px) { 
+  .btn-xs {
+    padding-top: 2% !important;
+    padding-bottom: 2% !important;
+    padding-left: 4% !important;
+    padding-right: 4% !important;
+  }
+
+  .left-padding0 {
+    padding-left: 0;
+  }
+
+  .left-padding12 {
+    padding-left: 3%;
+  }
+
+  .otherContainer {
+    padding-left: 3%; 
+    padding-right: 3%; 
+    padding-top: 0px;
+    padding-bottom: 50px
+  }
+
+  .sm-font10 {
+    font-size: 10px !important;
+  }
+ 
+  .sm-font12 {
+    font-size: 12px !important;
+  }
+
+  .sm-font15 {
+    font-size: 15px !important;
+  }
+
+  .sm-font20 {
+    font-size: 20px !important;
+  }
+
+  .sm-font25 {
+    font-size: 25px !important;
+  }
+
+  .sm-activity-feed {
+    width: 99%;
+    margin-left: 1%;
+  }
+
+  .sm-activity-feed2 {
+    width: 112%;
+    margin-left: 1%;
+  }
+
+  .sm-activity-feed3 {
+    width: 137%;
+    margin-left: 1%;
+  }
+
+  .sm-spacing {
+    margin-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .sm-post-padding {
+    padding-bottom: 0 !important;
+  }
+  .sm-review-padding {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .gold-star {
+    color: goldenrod !important;
+    font-size: 50%;
+  }
+ 
+  .review-font-size {
+    font-size: 50%;
+  }
+
+  .left-margin5 {
+    margin-left: 5%;
+  }
+
+  .sm-order-header {
+    font-size: 13px !important;
+    padding-left: 12px;
+    padding-right: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .sm-order-padding {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .sm-checkout {
+    padding-left: 4% !important;
+    padding-right: 4% !important;
+
+  }
+
+  .checkoutSuccess-card {
+    width: 400px;
+    height: 300px;
+    padding-top: 35px;
+  }
+
+  .checkoutSucces-title {
+    font-size: 20px !important;
+  }
+
+  .sm-notification-margin {
+    margin-left: 4.5%;
+    margin-right: 6%;
+    padding: 0.5rem;
+  }
+
+  .sm-notification-mr {
+    margin-right: 10% !important;
+  }
+
+  .sm-notification-padding {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
+
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767px) { 
+  .checkoutSuccess-card {
+    width: 500px;
+    height: 400px;
+    padding-top: 85px;
+  }
+
+  .md-font25 {
+    font-size: 25px !important;
+  }
+
+  
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+  .md-font28 {
+    font-size: 28px !important;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1023) { }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  } 

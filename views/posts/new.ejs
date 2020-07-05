@@ -1,7 +1,7 @@
 <% layout('layouts/postsIndex') -%>
 
 
-<div class="modal-dialog cascading-modal new-post">
+<div class="modal-dialog cascading-modal new-post px-3">
     <h1 class="text-center font-weight-bold ">Create New Post</h1>
 
     <div class="modal-content border border-light">
@@ -12,7 +12,7 @@
                 <div class="md-form form-sm mb-3 ">
                     <input class="form-control form-control-sm" type="text" name="post[title]" placeholder="Title" required>
                 </div>
-                <div class="md-form form-sm mb-3" style="display: none;">
+                <div class="md-form form-sm mb-3 no-display">
                     <input class="form-control form-control-sm" type="text" name="post[author.username]" placeholder="<%= currentUser.username %>" disabled>
                 </div>
                 <div class="md-form form-sm mb-3">

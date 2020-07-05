@@ -36,7 +36,6 @@ const middleware = {
             res.locals.post = post;
             return next();
         }
-        eval(require('locus'));
         req.session.error = 'Access denied!'
         res.redirect('back');
     },

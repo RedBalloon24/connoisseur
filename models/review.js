@@ -16,7 +16,11 @@ const ReviewSchema = new Schema({
     postTitle: {
         type: String,
         ref: 'Post'  
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 module.exports = mongoose.model('Review', ReviewSchema);

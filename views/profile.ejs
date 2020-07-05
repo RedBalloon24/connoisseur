@@ -25,11 +25,11 @@
 		</div>
 		<% if(!user.image.secure_url) { %> 
 			<div class="text-center">
-				<img src="/images/default-profile2.jpg" class="profile-image shadow">
+				<img src="/images/default-profile2.jpg" class="profile-image shadow img-fluid">
 			</div>
 		<% } else { %>
 			<div class="text-center">
-				<img src="<%= user.image.secure_url %>" class="profile-image shadow">
+				<img src="<%= user.image.secure_url %>" class="profile-image shadow img-fluid">
 			</div>
 		<% } %>
 		<h1 class="text-center font-weight-bold mt-3 text-capitalize"><%= user.username %></h1>
@@ -104,9 +104,9 @@
 			<% if(currentUser && user._id.equals(currentUser._id)){ %>
 			<a href="#collapseEditProfile" class="btn btn-warning btn-sm" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseEditProfile">Update Profile</a>
 			<div class="collapse" id="collapseEditProfile">
-				<div class="card card-body mt-3">
-					<div class="padding30">
-						<form action="/users/<%= currentUser._id %>?_method=PUT" method="POST" class="mt-1" enctype="multipart/form-data">
+				<div class="card card-body mt-3 ">
+					<div class="text-center d-flex justify-content-center">
+						<form action="/users/<%= currentUser._id %>?_method=PUT" method="POST" class="mt-1 text-center" enctype="multipart/form-data">
 							<div class="form-group">
 								<label class="form-class" for="username">Username:</label>
 								<div class="input-group mb-2">
@@ -173,7 +173,7 @@
 		<h3 class="text-center">Activity Feed:</h3>
 		<div class="row">
 			<div class="col-3">
-				<ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+				<ul class="nav flex-column nav-pills sm-font10" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					<li class="nav-item pill-1">
 						<a class="nav-link active" id="v-pills-posts-tab" data-toggle="pill" href="#v-pills-posts" role="tab" aria-controls="v-pills-posts" aria-selected="true">Posts</a>
 					</li>
@@ -191,20 +191,20 @@
 						<% if(posts.length === 0) { %> 
 							<p>User has not created any posts.</p>
 						<% } else { %>
-							<div class="row pl-3">
+							<div class="row pl-3 sm-activity-feed">
 								<% posts.forEach(function(post) { %>
-									<div class="shadow col-5 mx-1 my-1" data-aos="flip-left" data-aos-duration="1200" >
+									<div class="shadow col-lg-5 col-md-5 col-sm-10 col-sm-5 mx-1 my-1" data-aos="flip-left" data-aos-duration="1200" >
 										<div class="row">
-											<div class="card-body">
-												<div class="card-title">
-													<a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" width="25%" class="rounded-image"></a>
+											<div class="card-body sm-spacing">
+												<div class="card-title left-margin15">
+													<a href="/posts/<%= post.id %>"><img src="<%= post.images[0].url %>" class="rounded-image sm-post-padding"></a>
 												</div>
 											</div>
-											<div class="card-body mt-3">
+											<div class="card-body mt-3 sm-spacing">
 												<div class="card-text">
-													<a href="/posts/<%= post.id %>" class="link text-dark font-weight-bold text-uppercase"><%= post.title %></a><br>
-													<p class="mb-0">from</p>
-													<p class="text-danger text-capitalize"><%= post.location %></p>
+													<a href="/posts/<%= post.id %>" class="link text-dark font-weight-bold text-uppercase sm-font12"><%= post.title %></a><br>
+													<p class="mb-0 sm-font10">from</p>
+													<p class="text-danger text-capitalize sm-font12"><%= post.location %></p>
 												</div>
 											</div>
 										</div>
@@ -212,26 +212,30 @@
 								<% }) %>
 							</div>
 						<% } %>
-					</div>					
+					</div>		
+								
 					<div class="tab-pane fade profileTab" id="v-pills-reviews" role="tabpanel" aria-labelledby="v-pills-reviews-tab">
 						<% if(reviews.length === 0)  { %> 
 							<p>User has not created any reviews.</p>
 						<% } else { %>
-							<div class="row pl-3">
+							<div class="row pl-3 sm-activity-feed2">
 								<% reviews.forEach((review) =>  { %>
 									<div class="shadow col-10 mx-1 my-1" data-aos="flip-left" data-aos-duration="1200" >
-										<div class="card-body">
+										<div class="card-body sm-review-padding">
 											<div class="row">
-												<p class="text-uppercase"><i class="fas fa-long-arrow-alt-right mr-3"></i><a href="/posts/<%= review.location %>"><%= review.postTitle %></a></p>
+												<p class="text-uppercase sm-font12 left-margin5"><i class="fas fa-long-arrow-alt-right mr-3"></i><a href="/posts/<%= review.location %>"><%= review.postTitle %></a></p>
 											</div>
-											<h4 class="text-capitalize"><%= review.title %></h4>
-											<h5 class="text-danger text-capitalize"><%= review.body %></h5>
-											<p class="text-capitalize">Reviewed by: <%= user.username %></p>
+											<h4 class="text-capitalize sm-font15"><%= review.title %></h4>
+											<h5 class="text-danger sm-font10"><%= review.body %></h5>
+											<div class="review-font-size">
+												<p class="text-capitalize float-right">    <%= moment(review.createdAt).fromNow() %>
+												</p>
+											</div>
 											<% for(let i = 0; i < 5; i++) { %>
 												<% if(i < review.rating) { %>
-													<i class="fas fa-star" style="color: goldenrod !important;"></i>
+													<i class="fas fa-star gold-star"></i>
 												<% } else { %>
-													<i class="far fa-star" style="color: goldenrod !important;"></i>
+													<i class="far fa-star gold-star"></i>
 												<% } %>
 											<% } %>				
 										</div>
@@ -246,25 +250,25 @@
 							<p>No purchases have been made.</p>
 						<% } else { %>
 							<% orders.forEach((order) =>  { %>
-								<div class="row pl-3">
-									<div class="shadow col-8 mx-1 my-1 mb-4" data-aos="flip-left" data-aos-duration="1200">
-										<h4 class="card-header text-light font-weight-bold bg-dark mb-3">Purchased on <%= moment(order._id).format('DD') %>/<%= moment(order._id).format('MM') %>/<%= moment(order._id).format('YYYY') %>
+								<div class="row pl-3 sm-activity-feed3">
+									<div class="shadow col-8 mx-1 my-1 mb-4 " data-aos="flip-left" data-aos-duration="1200">
+										<h4 class="card-header text-light font-weight-bold bg-dark mb-3 font-16 sm-order-header" >Purchased on <%= moment(order._id).format('DD') %>/<%= moment(order._id).format('MM') %>/<%= moment(order._id).format('YYYY') %>
 										</h4>
 										<% order.items.forEach((item) =>  { %>
-											<div class="card-text ml-5 mb-2 font-20">
+											<div class="card-text left-margin10 mb-2 font-12">
 												<% if(item.qty < 2) { %>
-													<li>
-														<a href="/posts/<%= item.item._id %>" class="text-danger font-weight-bold">  <%= item.item.title %></a> ||  <%= item.qty %>  Unit <i class="fas fa-long-arrow-alt-right"></i> <%= item.price %>€
+													<li class="sm-font12">
+														<a href="/posts/<%= item.item._id %>" class="text-danger font-weight-bold">  <%= item.item.title %></a> ||  <%= item.qty %>  Unit <i class="fas fa-long-arrow-alt-right "></i> <%= item.price %>€
 													</li>
 												<% } else { %>
-													<li>
+													<li class="sm-font12">
 														<a href="/posts/<%= item.item._id %>" class="text-danger font-weight-bold">  <%= item.item.title %></a> ||  <%= item.qty %>  Units <i class="fas fa-long-arrow-alt-right"></i> <%= item.price %>€
 													</li>
 												<% } %>
 											</div>		
 										<% }) %>
 										<hr>
-										<p class="text-capitalize mt-2 text-center font-weight-bold text-dark">Total Price: <%= order.cart.totalPrice %>€ </p>	
+										<p class="text-capitalize mt-2 text-center font-weight-bold text-dark sm-font12">Total Price: <%= order.cart.totalPrice %>€ </p>	
 									</div>
 								</div>
 							<% }) %>

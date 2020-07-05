@@ -1,4 +1,4 @@
-#map {
+/* #map {
     width: 350px;
     height: 200px;
 }
@@ -19,7 +19,7 @@
 .mapboxgl-popup-content {
     text-align: center;
     font-family: 'Open Sans', sans-serif;
-}
+} */
 
 .edit-review-form {
     display: none;
@@ -32,3 +32,63 @@
 .new-review-border {
     border-left: 5px solid #00C851;
 }
+
+.postShow-padding {
+    padding-left: 12%; 
+    padding-right: 12%; 
+    padding-top: 50px;
+}
+
+.font64 {
+    font-size: 40px;
+}
+
+.location-style {
+    font-size: 25px; 
+    margin-top: 15px; 
+    margin-bottom: 30px;
+}
+
+.author-style {
+    font-size: 15px; 
+    margin-top: 15px; 
+    margin-bottom: 30px;
+}
+
+.font24{
+    font-size: 24px;
+}
+
+.gold-star {
+    color: goldenrod !important;
+}
+ 
+.margin30 {
+    margin-top: 30px; 
+    margin-bottom: 30px;
+}
+
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) { 
+    .btn-center {
+        padding: 3% !important;
+    }
+
+    .postShow-padding {
+        padding-left: 8%;
+        padding-right: 8%;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) { }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1023) { }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  } 

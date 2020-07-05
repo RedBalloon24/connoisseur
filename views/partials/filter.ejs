@@ -28,7 +28,7 @@
     </fieldset><br />
     <fieldset>
         <div>
-            <input type="text" style="border: none;"  name="location" id="location" placeholder="Address/Location" value="<%= query.location %>"><br />
+            <input type="text" class="b-0" name="location" id="location" placeholder="Address/Location" value="<%= query.location %>"><br />
             <button href="#" id="find-me" class="text-light btn-sm btn-dark shadow">use my location</button><br/>    
             <p id="status"></p>
         </div>
@@ -52,9 +52,9 @@
     <fieldset>
 		<legend class="text-danger">Price</legend>
 		<label for="min">Min</label>
-        <input type="number" id="min" style="border: none;" name="price[min]" min="0" max="10000" step="1" placeholder="Min" value="<%= query.price ? query.price.min : '' %>"><br>
+        <input type="number" id="min" class="b-0" name="price[min]" min="0" max="10000" step="1" placeholder="Min" value="<%= query.price ? query.price.min : '' %>"><br>
 		<label for="max">Max</label>
-		<input type="number" id="max" style="border: none;" name="price[max]" min="0" max="10000" step="1" placeholder="Max" value="<%= query.price ? query.price.max : '' %>">
+		<input type="number" id="max" class="b-0" name="price[max]" min="0" max="10000" step="1" placeholder="Max" value="<%= query.price ? query.price.max : '' %>">
 	</fieldset><br />
     <fieldset class="starability-basic">
         <legend class="text-danger">Rating</legend>
