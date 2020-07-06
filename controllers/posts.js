@@ -76,6 +76,8 @@ module.exports = {
                 model: 'User'
             }
         });
+
+
         const floorRating = post.calculateAvgRating();
         // const floorRating = post.avgRating;
         res.render('posts/show', { post, mapBoxToken, floorRating, title: 'Posts Show' });
