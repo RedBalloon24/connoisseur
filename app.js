@@ -119,4 +119,6 @@ app.use((err, req, res, next) => {
   res.redirect('back')
 });
 
+app.listen(process.env.PORT || 3000, () => console.log("Connoisseur has started"));
+
 module.exports = app;
