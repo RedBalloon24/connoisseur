@@ -58,7 +58,7 @@ app.locals.moment = require('moment');
 
 // configure passport and sessions
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'Super duper secret (change it)',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   store: new MongoStore({ mongooseConnection: db}),
