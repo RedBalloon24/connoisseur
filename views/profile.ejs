@@ -252,7 +252,7 @@
 							<% orders.forEach((order) =>  { %>
 								<div class="row pl-3 sm-activity-feed3">
 									<div class="shadow col-8 mx-1 my-1 mb-4 " data-aos="flip-left" data-aos-duration="1200">
-										<h4 class="card-header text-light font-weight-bold bg-dark mb-3 font-16 sm-order-header" >Purchased on <%= moment(order._id).format('DD') %>/<%= moment(order._id).format('MM') %>/<%= moment(order._id).format('YYYY') %>
+										<h4 class="card-header text-light font-weight-bold bg-dark mb-3 font-16 sm-order-header" >Purchased on <%= moment(order.createdAt).format('DD') %>/<%= moment(order.createdAt).format('MM') %>/<%= moment(order.createdAt).format('YYYY') %>
 										</h4>
 										<% order.items.forEach((item) =>  { %>
 											<div class="card-text left-margin10 mb-2 font-12">
